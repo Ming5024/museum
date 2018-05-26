@@ -1,0 +1,37 @@
+/* pages/user/user.wxss */
+.userinfo {
+  margin-bottom: -20%;
+  width: 100%;
+  height: 375rpx;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: left;
+}
+
+.userinfo-avatar {
+  position: relative;
+  top: 50;
+  transform: translateY(-50%);
+  width: 30%;
+  height: 60%;
+  margin: 0 12.5%;
+  border-radius: 50%;
+  
+}
+
+.userinfo-nickname {
+  display: block;
+  color: #aaa;
+}
+.userinfo-sex {
+  display: block;
+  color: #aaa;
+}
+
+.textinfo{
+  flex-direction: column;
+}
+
+.funcs{
+  width: 750rpx;
+}

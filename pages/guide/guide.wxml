@@ -1,0 +1,8 @@
+<!--pages/guide/guide.wxml-->
+<radio-group class="radio-group" bindchange="radiochange">
+  <label class="radio" wx:for="{{items}}">
+    <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+  </label>
+</radio-group>
+<image id="picture" src="{{route}}" mode="aspectFill">  
+</image>  

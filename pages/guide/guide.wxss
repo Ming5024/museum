@@ -1,0 +1,7 @@
+/* pages/guide/guide.wxss */
+.radio-group{
+margin-left:90px
+}
+#picture{
+margin-top:90px
+}

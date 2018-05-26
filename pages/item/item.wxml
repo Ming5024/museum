@@ -1,0 +1,57 @@
+
+  <view id='image-container'>
+    <image id='image' mode='{{mode}}' src='{{pic_src}}' />
+  </view>
+  <view class='swiper-tab'>
+    <view class="swiper-tab-item {{currentTab==0?'active':''}}" data-current='0' bindtap='clickTab'>展品信息</view>
+    <view class="swiper-tab-item {{currentTab==1?'active':''}}" data-current='1' bindtap='clickTab'>参考文献</view>
+  </view>
+  <swiper current='{{currentTab}}' duration='300' bindchange='swiperTab'  class='videoSwiper' style="height:{{clientHeight?clientHeight-304+'px':auto}}">
+    <swiper-item>
+      <scroll-view scroll-y='{{scroll_y}}' style="height: {{clientHeight?clientHeight-304+'px' : 'auto'}}">
+        <view id='flex-container'>
+          <view id='flex-view1'>
+            <text id='name'>{{exhibit_information.name}}</text>
+            <text id='category'>{{exhibit_information.category}}</text>
+          </view>
+          <view id='flex-view2'>
+            <image src='{{exhibit_information.share}}' mode='aspectFit'></image>
+            <image src='{{exhibit_information.star}}' mode='aspectFit'></image>
+          </view>
+        </view>
+        <view id='audio-container'>
+          <audio id='myAudio' src='{{exhibit_information.audio.audio_src}}' bindtimeupdate='onTimeUpdate'   bindplay='onPlay' bindpause='onStop' bindended='onStop'></audio>
+          <image bindtap='play' src="{{!exhibit_information.audio.playing ? '/res/play' : '/res/pause'}}.png"></image>
+          <!--进度条及时间-->
+          <view class='body-view'>
+            <!--当前时间-->
+            <text class='minMin'>{{exhibit_information.audio.minMin}}</text>
+            <!--进度条-->
+            <slider class='slider' block-size='12' value='{{exhibit_information.audio.sliderValue}}' bindchange='seek' min='{{exhibit_information.audio.minTime}}' max='{{exhibit_information.audio.maxTime}}'></slider>
+            <!--最大时间-->
+            <text class='maxMin'>{{exhibit_information.audio.maxMin}}</text>
+          </view>
+        </view>
+        <view id='position-container'>
+          <text id='position'>{{exhibit_information.position}}</text>
+        </view>
+        <view id='article-container'>
+          <text>{{exhibit_information.article}}</text>
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+       <scroll-view scroll-y='{{scroll_y}}' style="height: {{clientHeight?clientHeight-304+'px' : 'auto'}}">
+        <block wx:for='{{reference_information_array}}' wx:for-item='reference_information'>
+          <view id='title-container'>
+            <view id='title'>{{reference_information.title}}</view>
+            <view id='reference'>
+              <view id='author'>{{reference_information.author}}</view>
+              <view id='page'>---{{reference_information.page}}---</view>
+            </view>
+          </view>
+          <view id='reference-article'>{{reference_information.article}}</view>
+        </block>
+      </scroll-view>
+    </swiper-item>
+  </swiper>

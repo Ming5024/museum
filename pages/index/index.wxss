@@ -1,0 +1,16 @@
+/**index.wxss**/
+image{
+  width: 750rpx;
+  height: 256rpx;
+}
+
+.text1{
+  margin: 20rpx;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 150%;
+}
+.text2{
+  text-indent: 50rpx;
+}

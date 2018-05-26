@@ -1,0 +1,25 @@
+<!--index.wxml-->
+<view class="content">
+  <scroll-view  scroll-x="true">
+      <swiper autoplay="true" interval="3000" duration="500" indicator-dots='true'>
+          <block wx:for="{{imgUrls}}"  wx:for-index="index">
+              <swiper-item>
+                  <view>
+                    <image src="{{imgUrls[index]}}" mode="scaleToFill"/>
+                  </view>
+              </swiper-item>
+          </block>
+      </swiper>
+  </scroll-view>
+  <view class='text1'>
+    <text>{{head}}</text>
+  </view>
+  <view class='text2'>
+    <text>{{para1}}</text>
+  </view>
+    <view class='text2'>
+    <text>{{para2}}</text>
+  </view>
+
+</view>
+
