@@ -70,7 +70,7 @@ Page({
       success: (res) => {
         console.log(res);
         wx.navigateTo({
-          url: '/pages/item/item?id=bird',
+          url: '/pages/item/insect/insect?id=bird',
         })
       },
       fail: (res) => {
