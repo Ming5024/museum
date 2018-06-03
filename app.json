@@ -4,17 +4,17 @@
     "pages/logs/logs",
     "pages/guide/guide",
     "pages/scan/scan",
-    "pages/item/item",
+    "pages/item/insect/insect",
+    "pages/item/animal/animal",
+    "pages/item/plant/plant",
+    "pages/item/fossil/fossil",
     "pages/user/user"
-    
-    
-    
-
   ],
+
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Musuem",
+    "navigationBarBackgroundColor": "#096d48",    
+    "navigationBarTitleText": "Museum",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {
