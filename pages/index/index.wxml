@@ -1,7 +1,8 @@
 <!--index.wxml-->
 <view class="content">
 
-  <view class = 'cover' style='position:relative;background:url(/res/cover.jpg)'>
+  <view class = 'cover' style='position:relative'>
+    <image class = 'coverbackground' src='/res/cover.jpg' style='position:absolute'></image>
     <text class = 'covertitle' style='position:absolute;top:35vh'>{{covertitle}}</text>
     <text class = 'covercontent'style='position:absolute;top:45vh'>{{covercontent}}</text>
     <image class = 'coverbutton' src='/res/pushdown.png' style='position:absolute;bottom:20rpx;left:350rpx' bindtap='pushdown'/>
@@ -11,7 +12,7 @@
     <swiper autoplay="true" interval="3000" duration="500" indicator-dots='true'>
       <block wx:for="{{imgUrls}}"  wx:for-index="index">
         <swiper-item>
-          <view class = 'scrollitem'>
+          <view class = 'scrollitems'>
             <image src="{{imgUrls[index]}}" mode="scaleToFill"/>
           </view>
         </swiper-item>
@@ -19,7 +20,7 @@
     </swiper>
   </scroll-view>
 
-  <block class = 'introduction'>
+  <view class = 'introduction'>
     <view class='text1'>
       <text>{{head}}</text>
     </view>
@@ -29,7 +30,7 @@
     <view class='text3'>
       <text class='text'>{{para2}}</text>
     </view>
-  </block>
+  </view>
 
 </view>
 

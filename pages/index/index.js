@@ -15,11 +15,12 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     imgUrls:[
-      'http://www.sysu.edu.cn/2012/images/logo.jpg',
-      'http://www.sysu.edu.cn/2012/images/content/2018-03/20180309152903049854.jpg',
-      'http://www.sysu.edu.cn/2012/images/20170625175919614802.jpg',
-      'http://www.sysu.edu.cn/2012/images/20170625182044800849.jpg',
-      'http://library.sysu.edu.cn/images/2017_red_theme/cn_lib.jpg',
+      '/res/scrollimg1.png',
+      '/res/scrollimg2.png',
+      '/res/scrollimg3.png',
+      '/res/scrollimg4.png',
+      '/res/scrollimg5.png',
+      '/res/scrollimg6.png',
     ],
     top:0
   },
