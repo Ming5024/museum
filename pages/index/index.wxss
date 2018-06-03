@@ -1,16 +1,65 @@
 /**index.wxss**/
+
+body, html{
+  height: 200%;
+}
+
+page{
+  width: 100vw;
+  height: 200vh;
+}
+
 image{
-  width: 750rpx;
-  height: 256rpx;
+  width: 100vw;
+}
+
+.text{
+  margin: 10rpx;
+}
+
+.cover{
+  width: 100vw;
+  height: 100vh;
+}
+.covertitle{
+  width: 100vw;
+  height: 10vh;
+  text-align: center;
+  color: white;
+  font-size: 2rem;
+}
+.covercontent{
+  width: 100vw;
+  height: 10vh;
+  text-align: center;
+  color: white;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+.coverbutton{
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.scroll{
+  width: 100vw;
+  height: 30vh;
+}
+
+.scrollitem{
+  width: 100vw;
+  height: 30vh;
 }
 
 .text1{
-  margin: 20rpx;
+  width: 100vw;
   display: flex;
   justify-content: center;
   font-weight: bold;
   font-size: 150%;
 }
-.text2{
+.text2 .text3{
+  width: 100vw;
+  align-items: center;
   text-indent: 50rpx;
 }

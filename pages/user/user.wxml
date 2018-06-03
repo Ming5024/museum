@@ -5,8 +5,8 @@
     <block wx:else>
       <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
       <view class='textinfo'>
-        <text class="userinfo-nickname">昵称:{{userInfo.nickName}}</text>
-        <text class="userinfo-sex">性别:{{sex}}</text>
+        <text class="userinfo-nickname">昵称: {{userInfo.nickName}}</text>
+        <text class="userinfo-sex">性别: {{sex}}(Code:{{userInfo.gender}})</text>
       </view>
     </block>
   </view>

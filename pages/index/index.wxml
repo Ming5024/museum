@@ -1,25 +1,35 @@
 <!--index.wxml-->
 <view class="content">
-  <scroll-view  scroll-x="true">
-      <swiper autoplay="true" interval="3000" duration="500" indicator-dots='true'>
-          <block wx:for="{{imgUrls}}"  wx:for-index="index">
-              <swiper-item>
-                  <view>
-                    <image src="{{imgUrls[index]}}" mode="scaleToFill"/>
-                  </view>
-              </swiper-item>
-          </block>
-      </swiper>
+
+  <view class = 'cover' style='position:relative;background:url(/res/cover.jpg)'>
+    <text class = 'covertitle' style='position:absolute;top:35vh'>{{covertitle}}</text>
+    <text class = 'covercontent'style='position:absolute;top:45vh'>{{covercontent}}</text>
+    <image class = 'coverbutton' src='/res/pushdown.png' style='position:absolute;bottom:20rpx;left:350rpx' bindtap='pushdown'/>
+  </view>
+
+  <scroll-view class = 'scroll' scroll-x="true">
+    <swiper autoplay="true" interval="3000" duration="500" indicator-dots='true'>
+      <block wx:for="{{imgUrls}}"  wx:for-index="index">
+        <swiper-item>
+          <view class = 'scrollitem'>
+            <image src="{{imgUrls[index]}}" mode="scaleToFill"/>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
   </scroll-view>
-  <view class='text1'>
-    <text>{{head}}</text>
-  </view>
-  <view class='text2'>
-    <text>{{para1}}</text>
-  </view>
+
+  <block class = 'introduction'>
+    <view class='text1'>
+      <text>{{head}}</text>
+    </view>
     <view class='text2'>
-    <text>{{para2}}</text>
-  </view>
+      <text class='text'>{{para1}}</text>
+    </view>
+    <view class='text3'>
+      <text class='text'>{{para2}}</text>
+    </view>
+  </block>
 
 </view>
 
