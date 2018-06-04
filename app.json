@@ -19,29 +19,29 @@
   },
   "tabBar": {
     "color": "#929292",
-    "selectedColor": "#ff2d55",
+    "selectedColor": "#1afa29",
     "list": [
       {
-        "iconPath": "images/home.jpg",
-        "selectedIconPath": "images/home.jpg",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/selected_home.png",
         "pagePath": "pages/index/index",
         "text": "主页"
       },
       {
         "iconPath": "images/guide.png",
-        "selectedIconPath": "images/guide.png",
+        "selectedIconPath": "images/selected_guide.png",
         "pagePath": "pages/guide/guide",
         "text": "导览"
       },
       {
         "iconPath": "images/scan.png",
-        "selectedIconPath": "images/scan.png",
+        "selectedIconPath": "images/selected_scan.png",
         "pagePath": "pages/scan/scan",
         "text": "扫一扫"
       },
       {
         "iconPath": "images/user.png",
-        "selectedIconPath": "images/user.png",
+        "selectedIconPath": "images/selected_user.png",
         "pagePath": "pages/user/user",
         "text": "个人"
       }
