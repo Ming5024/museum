@@ -8,7 +8,7 @@
 
 .usercard {
   padding: 5vw;
-  background-color: #096d48;
+  background-color: #469276;
   display: flex;
   align-items: center;
   border-radius: 20rpx
@@ -39,14 +39,18 @@
 .userage{
   display: inline-block;
   color: #FFF;
-  margin-right: 2vw;
 }
 .editinfo{
   display: inline-block;
+  margin-left: 2vw;
   width: 5vw;
   height: 5vw;
 }
 
 .weui-panel__bd{
   margin-top: 5vw;
+}
+
+.weui-cell__hd{
+  height: 100%;
 }

@@ -31,7 +31,7 @@ Page({
   pushdown:function(e){
     wx.pageScrollTo({
       scrollTop: this.data.windowHeight,
-      duration: 300,
+      duration: 1000,
     })
   }
 })

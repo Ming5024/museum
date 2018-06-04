@@ -55,18 +55,24 @@ Page({
     var birth_month = Number(this.data.birth.substring(5, 7));
     var birth_day = Number(this.data.birth.substring(8));
     var age = 0;
-    if(now_year >= birth_year){
-      age += now_year - birth_year;
+    if(this.data.birth != ''){
+      if (now_year >= birth_year) {
+        age += now_year - birth_year;
+      }
+      if (now_month < birth_month) {
+        age -= 1;
+      } else if (now_month == birth_month && now_day < birth_day) {
+        age -= 1;
+      }
+      prevPage.setData({
+        age: age,
+      });
     }
-    if (now_month < birth_month) {
-      age -= 1;
-    } else if (now_month == birth_month && now_day < birth_day) {
-      age -= 1;
+    if(this.data.sex != ''){
+      prevPage.setData({
+        sex: this.data.sex,
+      });
     }
-    prevPage.setData({
-      sex:this.data.sex,
-      age:age,
-    });
     wx.navigateBack({
       delta: 1,
     })

@@ -8,8 +8,8 @@
       <view class='userinfo'>
         <text class="usernickname">{{userInfo.nickName}}</text>
         <view class='otherinfo'>
-          <text class="usersex">{{sex}}</text>
-          <text class="userage">{{age}}岁</text>
+          <text class="usersex" wx:if="{{sex!=''}}">{{sex}}</text>
+          <text class="userage" wx:if="{{age!=''}}">{{age}}</text> <text class="userage" wx:if="{{age!=''}}">岁</text>
           <image class="editinfo" src='/res/edit.png' bindtap='editinfo'/>
         </view>
       </view>
@@ -20,23 +20,23 @@
     <view class="weui-media-box weui-media-box_small-appmsg">
       <view class="weui-cells weui-cells_in-small-appmsg">
           <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap='modal_collection'>
-            <view class="weui-cell__hd"><image src="/res/collection.png" style="width: 20px;height: 20px;margin-right: 5px" /></view>
+            <view class="weui-cell__hd" style="height:20px"><image src="/res/collection.png" style="width: 20px;height: 20px;margin-right: 5px" mode='scaleToFill'/></view>
             <view class="weui-cell__bd weui-cell_primary">
-              <view>我的收藏</view>
+              <text>我的收藏</text>
             </view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
           </navigator>
           <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap='modal_history'>
-            <view class="weui-cell__hd"><image src="/res/history.png" style="width: 20px;height: 20px;margin-right: 5px" /></view>
+            <view class="weui-cell__hd" style="height:20px"><image src="/res/history.png" style="width: 20px;height: 20px;margin-right: 5px" /></view>
             <view class="weui-cell__bd weui-cell_primary">
-              <view>历史记录</view>
+              <text>历史记录</text>
             </view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
           </navigator>
           <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap='modal_questionaire'>
-            <view class="weui-cell__hd"><image src="/res/questionaire.png" style="width: 20px;height: 20px;margin-right: 5px" /></view>
+            <view class="weui-cell__hd" style="height:20px"><image src="/res/questionaire.png" style="width: 20px;height: 20px;margin-right: 5px" /></view>
             <view class="weui-cell__bd weui-cell_primary">
-              <view>调查问卷</view>
+              <text>调查问卷</text>
             </view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
           </navigator>
