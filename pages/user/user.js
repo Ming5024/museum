@@ -7,6 +7,7 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     sex:"Default",
+    age:"0",
   },
   onLoad: function (options) {
     if (app.globalData.userInfo) {
@@ -48,22 +49,34 @@ Page({
       hasUserInfo: true
     })
   },
-  func_collection: function(e){
-    wx.showToast({
-      title: '我的收藏',
-      duration:1000
+
+  modal_collection: function(e){
+    wx.showModal({
+      title: '提示',
+      content: '该功能正在路上，敬请期待',
+      duration:1000,
+      showCancel:false,
     }) 
   },
-  func_history: function (e) {
-    wx.showToast({
-      title: '我的足迹',
-      duration: 1000
+  modal_history: function (e) {
+    wx.showModal({
+      title: '提示',
+      content: '该功能正在路上，敬请期待',
+      duration: 1000,
+      showCancel: false,
     })
   },
-  func_qnaire: function (e) {
-    wx.showToast({
-      title: '调查问卷',
-      duration: 1000
+  modal_questionaire: function (e) {
+    wx.showModal({
+      title: '提示',
+      content: '该功能正在路上，敬请期待',
+      duration: 1000,
+      showCancel: false,
+    })
+  },
+  editinfo:function(e){
+    wx.navigateTo({
+      url: '/pages/edituserinfo/edituserinfo',
     })
   }
 })

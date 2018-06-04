@@ -1,0 +1,20 @@
+/* pages/edituserinfo.wxss */
+@import "/weui.wxss";
+
+.container{
+  padding-top:5vw;
+  padding-right:2vw;
+  padding-left: 2vw; 
+}
+.save{
+  text-align: center;
+  padding: 10vw;
+}
+.savebutton{
+  background-color: #096d48;
+  color: white
+}
+.savehint{
+  font-size: 25rpx;
+  color: #787878;
+}

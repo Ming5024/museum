@@ -1,18 +1,47 @@
 <!--pages/user/user.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+
+  <view class="usercard">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取用户信息 </button>
     <block wx:else>
-      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <view class='textinfo'>
-        <text class="userinfo-nickname">昵称: {{userInfo.nickName}}</text>
-        <text class="userinfo-sex">性别: {{sex}}(Code:{{userInfo.gender}})</text>
+      <image class="useravatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <view class='userinfo'>
+        <text class="usernickname">{{userInfo.nickName}}</text>
+        <view class='otherinfo'>
+          <text class="usersex">{{sex}}</text>
+          <text class="userage">{{age}}岁</text>
+          <image class="editinfo" src='/res/edit.png' bindtap='editinfo'/>
+        </view>
       </view>
     </block>
   </view>
-  <view class="funcs">
-    <button id="collection" bindtap ="func_collection">我的收藏</button>
-    <button id="history" bindtap="func_history">我的足迹</button>
-    <button id="qnaire" bindtap="func_qnaire">调查问卷</button>
+
+  <view class="weui-panel__bd">
+    <view class="weui-media-box weui-media-box_small-appmsg">
+      <view class="weui-cells weui-cells_in-small-appmsg">
+          <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap='modal_collection'>
+            <view class="weui-cell__hd"><image src="/res/collection.png" style="width: 20px;height: 20px;margin-right: 5px" /></view>
+            <view class="weui-cell__bd weui-cell_primary">
+              <view>我的收藏</view>
+            </view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+          </navigator>
+          <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap='modal_history'>
+            <view class="weui-cell__hd"><image src="/res/history.png" style="width: 20px;height: 20px;margin-right: 5px" /></view>
+            <view class="weui-cell__bd weui-cell_primary">
+              <view>历史记录</view>
+            </view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+          </navigator>
+          <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap='modal_questionaire'>
+            <view class="weui-cell__hd"><image src="/res/questionaire.png" style="width: 20px;height: 20px;margin-right: 5px" /></view>
+            <view class="weui-cell__bd weui-cell_primary">
+              <view>调查问卷</view>
+            </view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+          </navigator>
+      </view>
+    </view>
   </view>
+
 </view>

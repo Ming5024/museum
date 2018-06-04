@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/logs/logs",
     "pages/guide/guide",
@@ -8,43 +8,43 @@
     "pages/item/animal/animal",
     "pages/item/plant/plant",
     "pages/item/fossil/fossil",
-    "pages/user/user"
+    "pages/user/user",
+    "pages/edituserinfo/edituserinfo"
   ],
-
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#096d48",    
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#096d48",
     "navigationBarTitleText": "Museum",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "tabBar": {
-      "color": "#929292",
-      "selectedColor": "#ff2d55",
-      "list": [
-        {  "iconPath": "images/home.jpg",
+    "color": "#929292",
+    "selectedColor": "#ff2d55",
+    "list": [
+      {
+        "iconPath": "images/home.jpg",
         "selectedIconPath": "images/home.jpg",
-          "pagePath": "pages/index/index",
-          "text": "主页"
-
-        },
-        {  "iconPath": "images/guide.png",
+        "pagePath": "pages/index/index",
+        "text": "主页"
+      },
+      {
+        "iconPath": "images/guide.png",
         "selectedIconPath": "images/guide.png",
-          "pagePath": "pages/guide/guide",
-          "text": "导览"
-
-        },
-        { "iconPath": "images/scan.png",
+        "pagePath": "pages/guide/guide",
+        "text": "导览"
+      },
+      {
+        "iconPath": "images/scan.png",
         "selectedIconPath": "images/scan.png",
-          "pagePath": "pages/scan/scan",
-          "text": "扫一扫"
-
-        },
-        { "iconPath": "images/user.png",
+        "pagePath": "pages/scan/scan",
+        "text": "扫一扫"
+      },
+      {
+        "iconPath": "images/user.png",
         "selectedIconPath": "images/user.png",
-          "pagePath": "pages/user/user",
-          "text": "个人"
-
-        }
-      ]
-    }
+        "pagePath": "pages/user/user",
+        "text": "个人"
+      }
+    ]
+  }
 }

@@ -1,0 +1,46 @@
+<!--pages/edituserinfo.wxml-->
+<view class='container'>
+  <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">性别</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker mode="selector" range="{{rangeSex}}" value="0" bindchange="bindSexChange">
+                        <view class="weui-input">{{sex}}</view>
+                    </picker>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">年龄</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker mode="date" value="0" start="1900-01-01" end="{{now}}" bindchange="bindBirthChange">
+                        <view class="weui-input">{{birth}}</view>
+                    </picker>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">学校</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请输入学校名称" maxlength='15' bindinput='bindSchoolChange'/>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">手机号码</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请输入手机号码" maxlength='11' bindinput='bindTelChange'/>
+                </view>
+            </view>
+        </view>
+
+        <view class='save'>
+            <button class='savebutton' bindtap='save'>保存</button>
+            <text class='savehint'>我们会根据不同的个人资料推送不同的介绍哦~</text>
+        </view>
+</view>

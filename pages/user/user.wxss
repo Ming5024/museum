@@ -1,34 +1,52 @@
 /* pages/user/user.wxss */
-.userinfo {
-  width: 100vw;
-  height: 20vh;
-  display: inline-flex;
-  flex-direction: row;
-  align-items: left;
+
+@import "/weui.wxss";
+
+.container{
+  padding: 5vw;
 }
 
-.userinfo-avatar {
+.usercard {
+  padding: 5vw;
+  background-color: #096d48;
+  display: flex;
+  align-items: center;
+  border-radius: 20rpx
+}
+.useravatar {
   position: relative;
-  transform: translateY(-50%);
   width: 20vw;
   height: 20vw;
-  margin: 0 12.5%;
+  margin-right: 5vw;
   border-radius: 50%;
 }
-
-.userinfo-nickname {
-  display: block;
-  color: #aaa;
-}
-.userinfo-sex {
-  display: block;
-  color: #aaa;
-}
-
-.textinfo{
+.userinfo{
   flex-direction: column;
 }
+.usernickname {
+  display: block;
+  font-size: 50rpx;
+  color: #FFF;
+}
+.otherinfo{
+  flex-direction: row;
+}
+.usersex {
+  display: inline-block;
+  color: #FFF;
+  margin-right: 2vw;
+}
+.userage{
+  display: inline-block;
+  color: #FFF;
+  margin-right: 2vw;
+}
+.editinfo{
+  display: inline-block;
+  width: 5vw;
+  height: 5vw;
+}
 
-.funcs{
-  width: 750rpx;
+.weui-panel__bd{
+  margin-top: 5vw;
 }
