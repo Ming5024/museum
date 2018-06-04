@@ -1,80 +1,62 @@
-// pages/guide/guide.js
-const app = getApp()
+// 
+var app = getApp()
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-  items:[
-    {name:'1F',value:'1F',checked:'true'},
-    { name: '2F', value: '2F' },
-     { name:'3F', value:'3F'}
-  ],
-  route:'/images/1F.jpg'
+    /** 
+        * 页面配置 
+        */
+    winWidth: 0,
+    winHeight: 0,
+    // tab切换  
+    currentTab: 0,
+	
+    pics:[
+      '/images/1F.jpg',
+      '/images/2F.jpg',
+      '/images/3F.jpg'
+    ]
+
+  },
+  onLoad: function () {
+    var that = this;
+
+    /** 
+     * 获取系统信息 
+     */
+    wx.getSystemInfo({
+
+      success: function (res) {
+        that.setData({
+          winWidth: res.windowWidth,
+          winHeight: res.windowHeight
+        });
+      }
+
+    });
   },
  
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    this.setData({
-      route:'/images/1F.jpg'})
-  },
+  /** 
+     * 滑动切换tab 
+     */
+  bindChange: function (e) {
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
+    var that = this;
+    that.setData({ currentTab: e.detail.current });
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
   },
+  /** 
+   * 点击tab切换 
+   */
+  swichNav: function (e) {
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
+    var that = this;
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  },
-  radiochange: function (e) {
-    var r=null;
-    var prefix='/images/';
-    var postfix='.jpg';
-    r=prefix+e.detail.value+postfix;
-    this.setData({route:r});
+    if (this.data.currentTab === e.target.dataset.current) {
+      return false;
+    } else {
+      that.setData({
+        currentTab: e.target.dataset.current
+      })
+    }
   }
-})
+})  
