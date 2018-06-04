@@ -2,79 +2,70 @@
   <view id='image-container'>
     <image id='image' mode='{{mode}}' src='{{pic_src}}' />
   </view>
-  <view class='swiper-tab'>
-    <view class="swiper-tab-item {{currentTab==0?'active':''}}" data-current='0' bindtap='clickTab'>展品信息</view>
-    <view class="swiper-tab-item {{currentTab==1?'active':''}}" data-current='1' bindtap='clickTab'>相关推荐</view>
+   <view class='tab'>
+    <view class="tab-item {{currentTab==0?'active':''}}" data-current='0' bindtap='clickTab'>展品信息</view>
+    <view class="tab-item {{currentTab==1?'active':''}}" data-current='1' bindtap='clickTab'>相关推荐</view>
+  </view> 
+<view id='detail' wx:if="{{currentTab==0}}" >
+  <view id='flex-container' >
+    <view id='flex-view1'>
+      <view id='flex-view1-item'>
+        <text id='name'>{{exhibit_information.name}}</text>
+        <text id='nickname'>{{exhibit_information.nickname}}</text>
+      </view>
+      <image src='{{exhibit_information.share}}' mode='aspectFit'></image>
+    </view>
+    <view id='flex-view2'>
+      <text id='categary'>{{exhibit_information.category}}</text>
+      <text id='position'>{{exhibit_information.position}}</text>
+      <text id='collect'>{{exhibit_information.collect}}</text>
+    </view>
   </view>
-  <swiper current='{{currentTab}}' duration='300' bindchange='swiperTab'  class='videoSwiper' style="height:{{clientHeight?clientHeight-304+'px':auto}}">
-    <swiper-item>
-      <scroll-view scroll-y='{{scroll_y}}' style="height: {{clientHeight?clientHeight-304+'px' : 'auto'}}">
-        <view id='flex-container'>
-          <view id='flex-view1'>
-            <view id='flex-view1-item'>
-              <text id='name'>{{exhibit_information.name}}</text>
-              <text id='nickname'>{{exhibit_information.nickname}}</text>
-            </view>
-            <image src='{{exhibit_information.share}}' mode='aspectFit'></image>
-          </view>
-          <view id='flex-view2'>
-            <text id='categary'>{{exhibit_information.category}}</text>
-            <text id='position'>{{exhibit_information.position}}</text>
-            <text id='collect'>{{exhibit_information.collect}}</text>
-          </view>
-        </view>
-        <view id='article-container'>
-          <view id='aricle-item1'>
-            <view id='item-title-container'>
-              <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
-              <text id='item-title'>标本描述</text>
-            </view>
-            <view id='text-container'>
-              <text>{{exhibit_information.specimen_description}}</text>
-            </view>
-          </view>
-           <view id='aricle-item2'>
-            <view id='item-title-container'>
-              <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
-              <text id='item-title'>形态描述</text>
-            </view>
-            <view id='text-container'>
-              <text>{{exhibit_information.morphology_description}}</text>
-            </view>
-          </view>
-          <view id='aricle-item3'>
-            <view id='item-title-container'>
-              <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
-              <text id='item-title'>生活环境</text>
-            </view>
-            <view id='text-container'>
-              <text>{{exhibit_information.surroundings}}</text>
-            </view>
-          </view>          
-          <view id='aricle-item4'>
-            <view id='item-title-container'>
-              <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
-              <text id='item-title'>分布情况</text>
-            </view>
-            <view id='text-container'>
-              <text>{{exhibit_information.distribution}}</text>
-            </view>
-          </view>
-          <view id='aricle-item5'>
-            <view id='item-title-container'>
-              <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
-              <text id='item-title'>应用价值</text>
-            </view>
-            <view id='text-container'>
-              <text>{{exhibit_information.application_value}}</text>
-            </view>
-          </view>
-        </view>
-
-      </scroll-view>
-    </swiper-item>
-    <swiper-item>
-       <scroll-view scroll-y='{{scroll_y}}' style="height: {{clientHeight?clientHeight-304+'px' : 'auto'}}">
-      </scroll-view>
-    </swiper-item>
-  </swiper>
+  <view id='article-container'>
+    <view id='aricle-item1'>
+      <view id='item-title-container'>
+        <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
+        <text id='item-title'>标本描述</text>
+      </view>
+      <view id='text-container'>
+        <text>{{exhibit_information.specimen_description}}</text>
+      </view>
+  </view>
+    <view id='aricle-item2'>
+      <view id='item-title-container'>
+        <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
+        <text id='item-title'>形态描述</text>
+      </view>
+      <view id='text-container'>
+        <text>{{exhibit_information.morphology_description}}</text>
+      </view>
+    </view>
+    <view id='aricle-item3'>
+      <view id='item-title-container'>
+        <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
+        <text id='item-title'>生活环境</text>
+      </view>
+      <view id='text-container'>
+        <text>{{exhibit_information.surroundings}}</text>
+      </view>
+    </view>
+    <view id='aricle-item4'>
+      <view id='item-title-container'>
+        <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
+        <text id='item-title'>分布情况</text>
+      </view>
+      <view id='text-container'>
+        <text>{{exhibit_information.distribution}}</text>
+      </view>
+    </view>
+    <view id='aricle-item5'>
+      <view id='item-title-container'>
+        <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
+        <text id='item-title'>应用价值</text>
+      </view>
+      <view id='text-container'>
+        <text>{{exhibit_information.application_value}}</text>
+      </view>
+    </view>
+  </view>
+</view>

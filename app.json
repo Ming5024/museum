@@ -15,7 +15,7 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#096d48",
     "navigationBarTitleText": "Museum",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#929292",

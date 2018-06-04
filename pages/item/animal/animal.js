@@ -4,7 +4,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    scroll_y: true,
     currentTab: 0,
     pic_src: '/res/bird2.jpg',
     mode: 'aspectFit',
@@ -36,15 +35,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    //获取设备的可视窗口高度
-    var that = this;
-    wx.getSystemInfo({
-      success: function(res) {
-        that.setData({
-          clientHeight: res.windowHeight
-        })
-      },
-    });
   },
 
   /**
@@ -87,13 +77,6 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-
-  swiperTab: function (e) {
-    var that = this;
-    that.setData({
-      currentTab: e.detail.current
-    });
   },
 
   clickTab: function (e) {
