@@ -3,15 +3,16 @@
 @import "/weui.wxss";
 
 .container{
-  padding: 5vw;
+  padding: 10vw 5vw 0 5vw;
 }
 
 .usercard {
-  padding: 5vw;
+  padding:5vw;
+  margin-bottom: 5vw;
   background-color: #469276;
   display: flex;
   align-items: center;
-  border-radius: 20rpx
+  border-radius: 20rpx;
 }
 .useravatar {
   position: relative;
@@ -53,4 +54,10 @@
 
 .weui-cell__hd{
   height: 100%;
+  margin-right:5vw;
+}
+
+.weui-cell__bd.weui-cell_primary{
+  margin-top: 4vw;
+  margin-bottom: 4vw;
 }
