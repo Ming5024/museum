@@ -18,8 +18,8 @@
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
-    "color": "#929292",
-    "selectedColor": "#4faa3a",
+    "color": "#000000",
+    "selectedColor": "#096d48",
     "list": [
       {
         "iconPath": "images/home.png",

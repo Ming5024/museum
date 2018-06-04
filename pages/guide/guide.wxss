@@ -13,8 +13,8 @@ height: 100%;
     width: 33.33%;  
     color: #777777;  
 }  
-.on{ color:#4faa3a; 
-    border-bottom: 5rpx solid #4faa3a;}  
+.on{ color:#096d48; 
+    border-bottom: 5rpx solid #096d48;}  
   
 .swiper-box{ display: block; height: 100%; width: 100%; overflow: hidden; }   
 
