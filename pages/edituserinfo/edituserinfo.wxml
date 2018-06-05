@@ -7,7 +7,8 @@
                 </view>
                 <view class="weui-cell__bd">
                     <picker mode="selector" range="{{rangeSex}}" value="0" bindchange="bindSexChange">
-                        <view class="weui-input">{{sex}}</view>
+                        <view class="weui-input" wx:if="{{sex!=''}}">{{sex}}</view>
+                        <view class="weui-input" style="color:#787878" wx:if="{{sex ==''}}">请选择您的性别</view>
                     </picker>
                 </view>
             </view>
@@ -17,7 +18,8 @@
                 </view>
                 <view class="weui-cell__bd">
                     <picker mode="date" value="0" start="1900-01-01" end="{{now}}" bindchange="bindBirthChange">
-                        <view class="weui-input">{{birth}}</view>
+                        <view class="weui-input" wx:if="{{birth!=''}}">{{birth}}</view>
+                        <view class="weui-input" style="color:#787878" wx:if="{{birth==''}}">请选择您的出生日期</view>
                     </picker>
                 </view>
             </view>
