@@ -72,15 +72,6 @@ Page({
         wx.navigateTo({
           url: '/pages/item/insect/insect?id=bird',
         })
-      },
-      fail: (res) => {
-        wx.showToast({
-          title: '失败',
-          duration: 2000
-        })
-      },
-      complete: (res) => {
-        console.log("complete");
       }
     })
   }
