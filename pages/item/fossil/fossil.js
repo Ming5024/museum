@@ -5,17 +5,7 @@ Page({
    */
   data: {
     currentTab: 0,
-    pic_src: '/res/bird2.jpg',
-    mode: 'aspectFit',
-    exhibit_information: {
-      name: '丽盾蝽',
-      category: 'xx目xx纲属种',
-      share: '/res/share.png',
-      position: '位置：三楼哺乳动物厅',
-      collect: '采集人：xxx 采集日期：2018-05-01 采集地点：xxxx',
-      bar: '/res/bar.png',
-      specimen_description: '1)\n2)\n3)\n4)\n'
-    }
+    exhibitImageHeight: 0,
   },
 
   /**
@@ -23,7 +13,37 @@ Page({
    */
   onLoad: function (options) {
     //跳转测试
-    console.log(options.id);
+    var id = options.id;
+    var that = this;
+
+    wx.getSystemInfo({
+      success: function(res) {
+        that.setData({
+          screenWidth: res.windowWidth,
+        })
+      },
+    })
+
+    wx.request({
+      url: "http://172.18.233.8:52080/search/fossil",
+      method: "GET",
+      data: {chName: id},
+      dataType: "json",
+      success: function(res) {
+        var temp = (res.data.specimen_pic).map(x => "http://172.18.233.8:52080/pic/" + x);
+        that.setData({
+          pic_src: (res.data.specimen_pic).map(x => "http://172.18.233.8:52080/pic/" + x),
+          exhibit_information: {
+            name: res.data.spec_chName,
+            category: res.data.spec_classifyPos === null ? "" : res.data.spec_classifyPOs,
+            share: "/res/share.png",
+            collect: (res.data.spec_collector === null ? "" : "采集人：" + res.data.spec_collector) + (res.data.spec_collectPos === null ? "" : " 采集地：" + res.data.spec_collectPos),
+            specimen_description: res.data.spec_description === null ? "" : res.data.spec_description,
+            bar: '/res/bar.png',
+          }
+        });
+      }
+    })
   },
 
   /**
@@ -83,5 +103,14 @@ Page({
         currentTab: e.target.dataset.current
       });
     }
+  },
+
+  imageLoad: function(e) {
+    var width = e.detail.width;
+    var height = e.detail.height;
+    var ratio = this.data.screenWidth / width;
+    this.setData({
+      exhibitImageHeight: ratio * height,
+    });
   }
 })

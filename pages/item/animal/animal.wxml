@@ -1,11 +1,16 @@
-
-  <view id='image-container'>
-    <image id='image' mode='{{mode}}' src='{{pic_src}}' />
-  </view>
-   <view class='tab'>
-    <view class="tab-item {{currentTab==0?'active':''}}" data-current='0' bindtap='clickTab'>展品信息</view>
-    <view class="tab-item {{currentTab==1?'active':''}}" data-current='1' bindtap='clickTab'>相关推荐</view>
-  </view> 
+<view id='image-container'>
+  <swiper autoplay='true' style='height:{{exhibitImageHeight}}px'>
+    <block wx:for='{{pic_src}}'>
+      <swiper-item>
+        <image id='image' mode='widthFix' src='{{item}}' bindload='imageLoad'/>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class='tab'>
+  <view class="tab-item {{currentTab==0?'active':''}}" data-current='0' bindtap='clickTab'>展品信息</view>
+  <view class="tab-item {{currentTab==1?'active':''}}" data-current='1' bindtap='clickTab'>相关推荐</view>
+</view> 
 <view id='detail' wx:if="{{currentTab==0}}" >
   <view id='flex-container' >
     <view id='flex-view1'>

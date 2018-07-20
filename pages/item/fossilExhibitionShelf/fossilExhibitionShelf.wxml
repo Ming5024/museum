@@ -1,0 +1,17 @@
+<view>
+  <swiper style="height:{{exhibitionImageHeight}}px" bindchange="imageChange">
+    <block wx:for="{{exhibitionImageUrls}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" style="height:{{exhibitionImageHeight}}px" bindload="imageLoad" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view id="indicator" style="left:{{indicatorLeft}}px">{{indicator}}</view>
+<view id="article">
+  <view id="title">
+    <view id="bar"/>
+    <text>鸣禽展架</text>
+  </view>
+  <view id="main-content">{{mainContent}}</view>
+</view>

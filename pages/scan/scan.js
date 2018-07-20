@@ -68,9 +68,8 @@ Page({
     var that = this;
     wx.scanCode({
       success: (res) => {
-        console.log(res);
         wx.navigateTo({
-          url: '/pages/item/insect/insect?id=bird',
+          url: '/pages/item/plant/plant?id=SYS00000229',
         })
       }
     })

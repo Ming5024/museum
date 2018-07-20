@@ -5,24 +5,7 @@ Page({
    */
   data: {
     currentTab: 0,
-    pic_src: '/res/bird2.jpg',
-    mode: 'aspectFit',
-    exhibit_information: {
-      name: '丽盾蝽',
-      nickname: '(俗名：苦楝蝽)',
-      gender: '/res/female.png',
-      category: 'xx目xx纲属种',
-      share: '/res/share.png',
-      position: '位置：三楼哺乳动物厅',
-      collect: '采集人：xxx 采集日期：2018-05-01 采集地点：xxxx',
-      bar: '/res/bar.png',
-      specimen_description: '1)\n2)\n3)\n4)\n',
-      morphology_description: '生活在植物上，较大型的种类多栖息在树木上。植食性，常偏喜吸食果实，可造成各种危害。',
-      body_length: '广泛分布，热带、亚热带地区更为常见。',
-      body_color: '广泛分布，热带、亚热带地区更为常见。',
-      habit: '生活在植物上，较大型的种类多栖息在树木上。植食性，常偏喜吸食果实，可造成各种危害。',
-      distribution: '广泛分布，热带、亚热带地区更为常见。'
-    }
+    exhibitImageHeight: 0,
   },
 
   /**
@@ -30,7 +13,53 @@ Page({
    */
   onLoad: function (options) {
     //跳转测试
-    console.log(options.id);
+    var id = options.id;
+    var that = this;
+
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          screenWidth: res.windowWidth,
+        })
+      },
+    });
+
+    wx.request({
+      url: "http://172.18.233.8:52080/search/insect",
+      data: {specimenId: id},
+      method: "GET",
+      dataType: "json",
+      success: function(res) {
+        var speciDes = res.data.specimen_des === null ? "" : res.data.specimen_des;
+        if (speciDes != "") {
+          speciDes = sepciDes.match(/.*?。/).map((e, i) => i + 1 + ")" + e + "\n").reduce((a, b) => a.concat(b));
+        }
+
+        var province = res.data.specimen_province === null ? "" : res.data.specimen_province;
+        var city = res.data.specimen_city === null ? "" : res.data.specimen_city;
+        var loc = res.data.specimen_loc === null ? "" : res.data.specimen_loc;
+
+        that.setData({
+          pic_src: (res.data.specimen_pic).map(x => "http://172.18.233.8:52080/pic/" + x),
+          exhibit_information: {
+            name: res.data.spec_chName === null ? "" : res.data.spec_chName,
+            nickname: res.data.spec_commonName === null ? "" : "（俗名：" + res.data.spec_commonName + "）",
+            gender: res.data.specimen_sex === null ? "" : (res.data.specimen_sex === "♂" ? "/res/male.png" : "/res/female.png"),
+            category: (res.data.family_chName === null ? "" : res.data.family_chName) + (res.data.genus_chName === null ? "" : res.data.genus_chName),
+            share: '/res/share.png',
+            position: res.data.specimen_pos === null ? "" : res.data.specimen_pos,
+            collect: (res.data.specimen_collector === null ? "" : "采集人：" + res.data.specimen_collector) + (res.data.specimen_colDate === null ? "" : " 采集日期：" + res.data.specimen_colDate)  + (province + city + loc  === "" ? "" : "\n采集地点：" + province + city + loc),
+            bar: '/res/bar.png',
+            specimen_description: speciDes,
+            morphology_description: res.data.spec_formDes === null ? "" : res.data.spec_formDes,
+            body_length: res.data.spec_length === null ? "" : res.data.spec_length,
+            body_color: res.data.spec_bodyColor === null ? "" : res.data.spec_bodyColor,
+            habit: res.data.habit === null ? "" : res.data.habit,
+            distribution: (res.data.spec_distrWorld === null ? "" : "世界分布：" + res.data.spec_distrWorld + "。") + (res.data.spec_distrIn === null ? "" : "\n国内分布："  + res.data.spec_distrIn + "。"), 
+          }
+        })
+      }
+    })
   },
 
   /**
@@ -90,5 +119,14 @@ Page({
         currentTab: e.target.dataset.current
       });
     }
+  },
+
+  imageLoad: function (e) {
+    var width = e.detail.width;
+    var height = e.detail.height;
+    var ratio = this.data.screenWidth / width;
+    this.setData({
+      exhibitImageHeight: ratio * height,
+    });
   }
 })

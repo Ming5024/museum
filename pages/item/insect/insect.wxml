@@ -1,11 +1,16 @@
-
-  <view id='image-container'>
-    <image id='image' mode='{{mode}}' src='{{pic_src}}' />
-  </view>
-   <view class='tab'>
-    <view class="tab-item {{currentTab==0?'active':''}}" data-current='0' bindtap='clickTab'>展品信息</view>
-    <view class="tab-item {{currentTab==1?'active':''}}" data-current='1' bindtap='clickTab'>相关推荐</view>
-  </view> 
+<view id='image-container'>
+  <swiper autoplay='true' style='height:{{exhibitImageHeight}}px'>
+    <block wx:for='{{pic_src}}'>
+      <swiper-item>
+        <image id='image' mode='widthFix' src='{{pic_src}}'/>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class='tab'>
+  <view class="tab-item {{currentTab==0?'active':''}}" data-current='0' bindtap='clickTab'>展品信息</view>
+  <view class="tab-item {{currentTab==1?'active':''}}" data-current='1' bindtap='clickTab'>相关推荐</view>
+</view> 
 <view id='detail' wx:if="{{currentTab==0}}" >
   <view id='flex-container' >
     <view id='flex-view1'>
@@ -23,7 +28,7 @@
     </view>
   </view>
   <view id='article-container'>
-    <view id='aricle-item1'>
+    <view id='aricle-item1' style='{{exhibit_information.specimen_description==""? "display:none":"display:block"}}'>
       <view id='item-title-container'>
         <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
         <text id='item-title'>标本描述</text>
@@ -32,7 +37,7 @@
         <text>{{exhibit_information.specimen_description}}</text>
       </view>
   </view>
-    <view id='aricle-item2'>
+    <view id='aricle-item2' style='{{exhibit_information.morphology_description==""? "display:none":"display:block"}}'>
       <view id='item-title-container'>
         <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
         <text id='item-title'>形态描述</text>
@@ -41,7 +46,7 @@
         <text>{{exhibit_information.morphology_description}}</text>
       </view>
     </view>
-    <view id='aricle-item3'>
+    <view id='aricle-item3' style='{{exhibit_information.body_length==""? "display:none":"display:block"}}'>
       <view id='item-title-container'>
         <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
         <text id='item-title'>体型长度</text>
@@ -50,7 +55,7 @@
         <text>{{exhibit_information.body_length}}</text>
       </view>
     </view>
-    <view id='aricle-item4'>
+    <view id='aricle-item4' style='{{exhibit_information.body_color==""? "display:none":"display:block"}}'>
       <view id='item-title-container'>
         <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
         <text id='item-title'>体色</text>
@@ -59,7 +64,7 @@
         <text>{{exhibit_information.body_color}}</text>
       </view>
     </view>
-    <view id='aricle-item5'>
+    <view id='aricle-item5' style='{{exhibit_information.habit==""? "display:none":"display:block"}}'>
       <view id='item-title-container'>
         <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
         <text id='item-title'>生活习性</text>
@@ -68,7 +73,7 @@
         <text>{{exhibit_information.habit}}</text>
       </view>
     </view>
-    <view id='aricle-item6'>
+    <view id='aricle-item6' style='{{exhibit_information==""? "display:none":"display:block"}}'>
       <view id='item-title-container'>
         <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
         <text id='item-title'>分布情况</text>

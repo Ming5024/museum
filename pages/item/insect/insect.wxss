@@ -4,13 +4,17 @@
   align-items: flex-start;
 }
 
-/* #image-container>image {
-   width: 320px;
-   height: 240px;
-} */
+swiper {
+  width: 100%;
+}
+
+#image {
+  width: 100%;
+  height: 100%;
+}
 
 .tab {
-  width: 80%;
+  width: 95%;
   text-align: center;
   height: 88rpx;
   line-height: 88rpx;
@@ -41,7 +45,7 @@
 }
 
 #flex-container {
-  margin-left: 48rpx;
+  margin-left: 25rpx;
   margin-right: 60rpx;
 }
 
@@ -63,10 +67,6 @@
   align-items: flex-end;
 }
 
-/* #nickname {
-  font-size: 0.7rem;
-} */
-
 #gender {
   width: 20px;
   height: 20px;
@@ -85,7 +85,6 @@ text#name {
 #item-title-container {
   display: flex;
   align-items: center;
-  margin-left: 30rpx;
   margin-top: 20rpx;
   margin-bottom: 20rpx;
 }
@@ -95,7 +94,8 @@ text#name {
 }
 
 #text-container {
-  margin-left: 45rpx;
+  margin-left: 25rpx;
+  margin-right: 25rpx;
 }
 
 

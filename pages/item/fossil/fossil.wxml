@@ -1,5 +1,11 @@
 <view id='image-container'>
-  <image id='image' mode='{{mode}}' src='{{pic_src}}' />
+  <swiper autoplay='true' style='height:{{exhibitImageHeight}}px'>
+    <block wx:for='{{pic_src}}'>
+      <swiper-item>
+        <image id='image' mode='widthFix' src='{{item}}'  bindload='imageLoad'/>
+      </swiper-item>
+    </block>
+  </swiper>
 </view>
 <view class='tab'>
   <view class="tab-item {{currentTab==0?'active':''}}" data-current='0' bindtap='clickTab'>展品信息</view>
@@ -15,7 +21,6 @@
     </view>
     <view id='flex-view2'>
       <text id='categary'>{{exhibit_information.category}}</text>
-      <text id='position'>{{exhibit_information.position}}</text>
       <text id='collect'>{{exhibit_information.collect}}</text>
     </view>
   </view>
