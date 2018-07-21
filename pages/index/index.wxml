@@ -3,8 +3,8 @@
 
   <view class = 'cover' style='position:relative'>
     <image class = 'coverbackground' src='/res/cover.jpg' style='position:absolute'></image>
-    <text class = 'covertitle' style='position:absolute;top:35vh'>{{covertitle}}</text>
-    <text class = 'covercontent'style='position:absolute;top:45vh'>{{covercontent}}</text>
+    <image class = 'covertitle' src='/res/covertitle.png' style='position:absolute;top:35vh'/>
+    <text class = 'covercontent'style='position:absolute;top:47vh'>{{covercontent}}</text>
     <image class = 'coverbutton' src='/res/pushdown.png' style='position:absolute;bottom:20rpx;left:350rpx' bindtap='pushdown'/>
   </view>
 
@@ -22,12 +22,9 @@
 
   <view class = 'introduction'>
     <view class='text1'>
-      <text>{{head}}</text>
-    </view>
-    <view class='text2'>
       <text class='text'>{{para1}}</text>
     </view>
-    <view class='text3'>
+    <view class='text2'>
       <text class='text'>{{para2}}</text>
     </view>
   </view>
