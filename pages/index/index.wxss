@@ -19,10 +19,7 @@ image{
 }
 .covertitle{
   width: 100vw;
-  height: 10vh;
-  text-align: center;
-  color: white;
-  font-size: 2rem;
+  height: 9vh;
   z-index: 2;
 }
 .covercontent{
@@ -50,16 +47,11 @@ image{
 }
 
 .introduction{
-  padding: 5vw;
+  padding: 2vw 5vw;
 }
-.text1{
-  margin-bottom: 20rpx;
-  display: flex;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 40rpx;
-}
-.text2, .text3{
-  text-indent: 3%;
+
+.text1, .text2{
+  text-indent: 5%;
   font-size: 30rpx;
+  font-family: 微软雅黑;
 }
