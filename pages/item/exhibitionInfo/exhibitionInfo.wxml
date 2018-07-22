@@ -1,21 +1,19 @@
-<image wx:if="{{isShow}}" src="{{showPicture}}" mode="widthFix" style="width:100%; position:absolute; z-index:200; top:{{offsetTop}}px" bindtap="hideImage"></image>
+<image wx:if="{{isShow}}" src="{{showPicture}}" mode="widthFix" style="width:100%; position:absolute; z-index:200; top:{{offsetTop}}px" bindtap="hideImage" bindload="imageLoad"></image>
 <view wx:if="{{isShow}}" id="cover"></view>
-<view wx:if="{{!isShow}}"> 
-  <view wx:if="{{exhibitionHallImageUrls.length!=0}}">
-    <swiper style="height:440rpx" bindchange="imageChange">
-      <block wx:for="{{exhibitionImageUrls}}">
-        <swiper-item>
-          <image src="{{item}}" class="slide-image" data-src="{{item}}" bindload="imageLoad" bindtap="showImage"/>
-        </swiper-item>
-      </block>
-    </swiper>
+<view wx:if="{{exhibitionHallImageUrls.length!=0}}">
+  <swiper style="height:440rpx" bindchange="imageChange">
+    <block wx:for="{{exhibitionImageUrls}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" data-src="{{item}}" bindload="imageLoad" bindtap="showImage"/>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view id="indicator" style="left:{{indicatorLeft}}px">{{indicator}}</view>
+<view wx:if="{{!isShow}}" id="article">
+  <view id="title">
+    <view id="bar"/>
+    <text>{{articleTitle}}</text>
   </view>
-  <view id="indicator" style="left:{{indicatorLeft}}px">{{indicator}}</view>
-  <view id="article">
-    <view id="title">
-      <view id="bar"/>
-      <text>{{articleTitle}}</text>
-    </view>
-    <view id="main-content">{{mainContent}}</view>
-  </view>
+  <view id="main-content">{{mainContent}}</view>
 </view>

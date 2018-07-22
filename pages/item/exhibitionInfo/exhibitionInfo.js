@@ -4,7 +4,7 @@ Page({
    * 页面的初始数据
    */
   data: { 
-    exhibitionImageHeight: 0
+    
   },
 
   /**
@@ -97,7 +97,6 @@ Page({
     var height = e.detail.height;
     var ratio = this.data.screenWidth / width;
     this.setData({
-      exhibitionImageHeight: ratio * height,
       offsetTop: (this.data.screenHeight - (ratio * height)) / 2,
     });
   },

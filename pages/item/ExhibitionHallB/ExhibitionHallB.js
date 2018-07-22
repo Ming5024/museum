@@ -136,7 +136,6 @@ Page({
     var height = e.detail.height;
     var ratio = this.data.screenWidth / width;
     this.setData({
-      exhibitionHallImageHeight: ratio * height,
       offsetTop: (this.data.screenHeight - (ratio * height)) / 2,
     });
   },
@@ -177,7 +176,7 @@ Page({
 
   imageTap: function(e) {
     wx.navigateTo({
-      url: "/pages/item/exhibitionInfo/exhibitionInfo?info=" + JSON.stringify(e.target.dataset.exhibit_info, ),
+      url: "/pages/item/exhibitionInfo/exhibitionInfo?info=" + JSON.stringify(e.target.dataset.exhibit_info),
     })
   },
 
