@@ -1,0 +1,42 @@
+<image wx:if="{{isShow}}" src="{{showPicture}}" mode="widthFix" style="width:100%; position:absolute; z-index:200; top:{{offsetTop}}px" bindtap="hideImage"></image>
+<view wx:if="{{isShow}}" id="cover"></view>
+<view wx:if="{{!isShow}}"> 
+  <view wx:if="{{exhibitionHallImageUrls.length!=0}}">
+    <swiper style="height:440rpx" bindchange="imageChange">
+      <block wx:for="{{exhibitionHallImageUrls}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" data-src="{{item}}" bindload="imageLoad" bindtap="showImage"/>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view id="indicator" style="left:{{indicatorLeft}}px">{{indicator}}</view>
+  <view id="article">
+    <view id="article-title">{{articleTitle}}</view>
+    <view wx:if="{{introduction!=''}}" id="introduction">
+      <view class='article-sub-title'>
+        <view class="bar"></view>
+        <text>展厅介绍</text>
+      </view>
+      <view><text>{{introduction}}</text></view>
+    </view>
+    <view wx:if="{{exhibitions.length != 0}}" id="exhibition">
+      <view class='article-sub-title'>
+        <view class="bar"></view>
+        <text>展品</text>
+      </view> 
+      <block wx:for="{{exhibitions}}" wx:for-item="exhibition">
+        <view class="exhibition-picture-container">
+          <view wx:if="{{exhibition[0].picture!=''}}" class="exhibition-picture">
+            <image src="{{exhibition[0].picture}}" mode="widthFix" data-exhibit_info="{{exhibition[0]}}" bindtap="imageTap"/>
+            <text>{{exhibition[0].title}}</text>
+          </view>
+          <view wx:if="{{exhibition[1].picture!=''}}" class="exhibition-picture" bindtap="imageTap">
+            <image src="{{exhibition[1].picture}}" mode="widthFix" data-exhibit_info="{{exhibition[1]}}"/>
+            <text>{{exhibition[1].title}}</text>
+          </view>
+        </view>
+    </block>
+    </view>
+  </view>
+</view>

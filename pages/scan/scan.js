@@ -69,7 +69,7 @@ Page({
     wx.scanCode({
       success: (res) => {
         wx.navigateTo({
-          url: '/pages/item/plant/plant?id=SYS00000229',
+          url: res.result,
         })
       }
     })
