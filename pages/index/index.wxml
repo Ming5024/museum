@@ -21,7 +21,7 @@
   </scroll-view>
 
   <view class = 'introduction'>
-    <text class='text'>{{intro}}</text>
+    <text class='text' decode="{{true}}">{{intro}}</text>
   </view>
 
 </view>

@@ -25,13 +25,11 @@ Page({
           res.data.guide_pic[i] = "http://172.18.233.8:52080/pic/exhibitionpic/" + res.data.guide_pic[i];
         }
         this.setData({
-          intro: res.data.simple_intro,
+          intro: "&nbsp;&nbsp;"+res.data.simple_intro.replace("\r\n", "\r\n&nbsp;&nbsp;"),
           guide_pic: res.data.guide_pic
         }) 
       }
     })
-
-  
   },
 
   pushdown:function(e){

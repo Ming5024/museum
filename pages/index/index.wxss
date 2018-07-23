@@ -49,7 +49,9 @@ image{
 
 .introduction{
   padding: 2vw 5vw;
-  text-indent: 5%;
   font-size: 30rpx;
   font-family: 微软雅黑;
+}
+.text{
+  line-height: 1.3rem;
 }
