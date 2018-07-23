@@ -8,10 +8,9 @@
     "pages/item/animal/animal",
     "pages/item/plant/plant",
     "pages/item/fossil/fossil",
-    "pages/item/fossilExhibitionShelf/fossilExhibitionShelf",
-    "pages/item/fossilExhibitionHall/fossilExhibitionHall",
-    "pages/item/animalExhibitionHall/animalExhibitionHall",
-    "pages/item/animalExhibitionShelf/animalExhibitionShelf",
+    "pages/item/exhibitionInfo/exhibitionInfo",
+    "pages/item/ExhibitionHallA/ExhibitionHallA",
+    "pages/item/ExhibitionHallB/ExhibitionHallB",
     "pages/user/user",
     "pages/edituserinfo/edituserinfo"
   ],

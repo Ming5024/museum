@@ -48,7 +48,7 @@ Page({
         }
 
         that.setData({
-          pic_src: (res.data.specimen_pic).map(x => "http://172.18.233.8:52080/pic/" + x),
+          // pic_src: (res.data.specimen_pic).map(x => "http://172.18.233.8:52080/pic/" + x),
           exhibit_information: {
             name: res.data.spec_chName,
             nickname: res.data.spec_Alias === null ? "" : "俗名：" + res.data.spec_Alias,

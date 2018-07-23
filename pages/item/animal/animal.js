@@ -61,7 +61,7 @@ Page({
             gender: res.data.specimen_sex === "♂" ? "/res/male.png" : "/res/female.png",
             category: order + family + genus,
             habit: res.data.habit === null ? "" : res.data.habit,
-            distribution: (res.data.spec_distrOut === null ? "" : "世界分布：" + res.data.spec_distrWorld + "\n") + (res.data.spec_distrIn === null ? "" : "国内分布：" + res.data.spec_distrIn),
+            distribution: (res.data.spec_distrOut === null ? "" : "世界分布：" + res.data.spec_distrOut + "\n") + (res.data.spec_distrIn === null ? "" : "国内分布：" + res.data.spec_distrIn),
             classification_feature: res.data.spec_divFeature === null ? "" : res.data.spec_divFeature,
             position: res.data.specimen_pos === null ? "" : "位置：" + res.data.specimen_pos,
             collect: (res.data.specimen_collector === null ? "" : "采集人：" + res.data.specimen_collector) + (formatDate === "" ? "" : " 采集时间：" + formatDate) + (collectPosition === "" ? "" : " 采集地点：" + collectPosition),
