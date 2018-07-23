@@ -4,7 +4,7 @@
 .container{
   padding-top:5vw;
   padding-right:2vw;
-  padding-left: 2vw; 
+  padding-left: 2vw;
 }
 .save{
   text-align: center;

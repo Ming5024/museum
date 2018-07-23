@@ -10,10 +10,10 @@
 
   <scroll-view class = 'scroll' scroll-x="true">
     <swiper autoplay="true" interval="3000" duration="500" indicator-dots='true'>
-      <block wx:for="{{imgUrls}}"  wx:for-index="index">
+      <block wx:for="{{guide_pic}}"  wx:for-index="index">
         <swiper-item>
           <view class = 'scrollitems'>
-            <image src="{{imgUrls[index]}}" mode="scaleToFill"/>
+            <image src="{{guide_pic[index]}}" mode="scaleToFill"/>
           </view>
         </swiper-item>
       </block>
@@ -21,12 +21,7 @@
   </scroll-view>
 
   <view class = 'introduction'>
-    <view class='text1'>
-      <text class='text'>{{para1}}</text>
-    </view>
-    <view class='text2'>
-      <text class='text'>{{para2}}</text>
-    </view>
+    <text class='text'>{{intro}}</text>
   </view>
 
 </view>

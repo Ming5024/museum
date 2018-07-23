@@ -10,6 +10,18 @@ App({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        var code = res.code
+        wx.setStorageSync("login_code", res.code)
+        wx.request({
+          url: 'http://172.18.233.8:52080/userAuth/login',
+          data: {data: code},
+          method: "GET",
+          dataType: 'json',
+          success: res => {
+            wx.setStorageSync("openid", res.data.openid)
+            wx.setStorageSync("session_key", res.data.session_key)
+          }
+        })
       }
     })
     // 获取用户信息
@@ -27,6 +39,9 @@ App({
               if (this.userInfoReadyCallback) {
                 this.userInfoReadyCallback(res)
               }
+
+              wx.setStorageSync("encrypteddata", res.encryptedData)
+              wx.setStorageSync("iv", res.iv)
             }
           })
         }

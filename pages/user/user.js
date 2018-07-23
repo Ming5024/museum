@@ -6,8 +6,12 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    userName:'',
+    birth:'',
+    school:'',
     sex:"",
     age:"",
+    sysPlatform:'',
   },
   onLoad: function (options) {
     if (app.globalData.userInfo) {
@@ -40,6 +44,52 @@ Page({
         }
       })
     }
+
+    wx.request({
+      url: 'http://172.18.233.8:52080/userAuth/userinfo',
+      header:{
+        'content-type': "application/x-www-form-urlencoded"
+      },  
+      data:{
+        session_key: wx.getStorageSync("session_key"), 
+        iv: wx.getStorageSync("iv"), 
+        encryptedData: wx.getStorageSync("encrypteddata")
+      },
+      method: "POST",
+      success: res=>{
+        this.setData({
+          birth: res.data.birth,
+          sex: res.data.sex == 'man'? '男': (res.data.sex == 'woman' ? '女': ""),
+          userName: res.data.userName,
+          school: res.data.school
+        })
+
+        if (res.data.birth != '' && res.data.birth != null){
+          //计算年龄
+          var now = new Date()
+          var now_year = now.getFullYear();
+          var now_month = now.getMonth();
+          var now_day = now.getDay();
+          var birth_year = Number(this.data.birth.substring(0, 4));
+          var birth_month = Number(this.data.birth.substring(5, 7));
+          var birth_day = Number(this.data.birth.substring(8));
+          var age = 0;
+          if (this.data.birth != '') {
+            if (now_year >= birth_year) {
+              age += now_year - birth_year;
+            }
+            if (now_month < birth_month) {
+              age -= 1;
+            } else if (now_month == birth_month && now_day < birth_day) {
+              age -= 1;
+            }
+            this.setData({
+              age: age,
+            });
+          }
+        }
+      }
+    })
   },
   getUserInfo: function (e) {
     console.log(e)

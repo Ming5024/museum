@@ -6,6 +6,7 @@ page{
 }
 image{
   width: 100vw;
+  height: 30vh;
 }
 
 .cover{
@@ -48,9 +49,6 @@ image{
 
 .introduction{
   padding: 2vw 5vw;
-}
-
-.text1, .text2{
   text-indent: 5%;
   font-size: 30rpx;
   font-family: 微软雅黑;
