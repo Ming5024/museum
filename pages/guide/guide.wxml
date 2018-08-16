@@ -1,15 +1,17 @@
 <!--pages/guide/guide.wxml-->
 <view class="swiper-tab">  
-    <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">1F</view>  
-    <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">2F</view>  
-    <view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">3F</view>  
+    <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">总导览图</view>  
+    <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">1F</view>  
+    <view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">2F</view>  
+    <view class="swiper-tab-list {{currentTab==3 ? 'on' : ''}}" data-current="3" bindtap="swichNav">3F</view>  
 </view>  
   
 <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight-31}}px" bindchange="bindChange">  
     <block wx:for="{{pics}}"  wx:for-index="index">
         <swiper-item >
-           <view class = 'scrollitems'>
-            <image src="{{pics[index]}}" mode="scaleToFill" style="height:{{winHeight-31}}px;width:{{winWidth}}px"   />
+           <view class = 'scrollitems' >
+            <image src="{{pics[index]}}" mode="scaleToFill" style="height:{{winHeight-31}}px;width:{{winWidth}}px"   /> 
+        
           </view> 
           
         </swiper-item>
