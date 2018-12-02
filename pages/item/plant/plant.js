@@ -25,9 +25,12 @@ Page({
     });
 
     wx.request({
-      url: "http://172.18.233.8:52080/search/plant",
+      url: "https://www.sysubiomuseum.com/search/plant",
       method: "GET",
-      data: { specimenId: id},
+      data: {
+        specimenId: id,
+        openid: wx.getStorageSync('openid')
+      },
       dataType: "json",
       success: function(res) {
         var date = res.data.specimen_colDate;
@@ -48,7 +51,7 @@ Page({
         }
 
         that.setData({
-          // pic_src: (res.data.specimen_pic).map(x => "http://172.18.233.8:52080/pic/" + x),
+          // pic_src: (res.data.specimen_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x),
           exhibit_information: {
             name: res.data.spec_chName,
             nickname: res.data.spec_Alias === null ? "" : "俗名：" + res.data.spec_Alias,

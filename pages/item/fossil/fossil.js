@@ -25,14 +25,17 @@ Page({
     })
 
     wx.request({
-      url: "http://172.18.233.8:52080/search/fossil",
+      url: "https://www.sysubiomuseum.com/search/fossil",
       method: "GET",
-      data: {chName: id},
+      data: {
+        chName: id,
+        openid: wx.getStorageSync('openid')
+      },
       dataType: "json",
       success: function(res) {
-        var temp = (res.data.specimen_pic).map(x => "http://172.18.233.8:52080/pic/" + x);
+        var temp = (res.data.specimen_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x);
         that.setData({
-          pic_src: (res.data.specimen_pic).map(x => "http://172.18.233.8:52080/pic/" + x),
+          pic_src: (res.data.specimen_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x),
           exhibit_information: {
             name: res.data.spec_chName,
             category: res.data.spec_classifyPos === null ? "" : res.data.spec_classifyPOs,

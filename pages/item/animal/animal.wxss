@@ -99,4 +99,10 @@ text#name {
   margin-left: 25rpx;
 }
 
+#myVideo {
+  margin: 25rpx auto;
+  align-items: center;
+  display:flex;
+}
+
 

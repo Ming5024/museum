@@ -81,11 +81,11 @@ let scaleHeight = newScale * touch.baseHeight
     });
 
     wx.request({
-      url: 'http://172.18.233.8:52080/search/mainintro',
+      url: 'https://www.sysubiomuseum.com/search/mainintro',
       method: 'GET',
       success: res => {
         for (var i = 0; i < res.data.guide_pic.length; i++) {
-          res.data.guide_pic[i] = "http://172.18.233.8:52080/pic/exhibitionpic/" + res.data.guide_pic[i];
+          res.data.guide_pic[i] = "https://www.sysubiomuseum.com/pic/exhibitionpic/" + res.data.guide_pic[i];
         }
         this.setData({
           intro: "&nbsp;&nbsp;" + res.data.simple_intro.replace("\r\n", "\r\n&nbsp;&nbsp;"),

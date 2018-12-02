@@ -1,0 +1,37 @@
+/* pages/redirect/redirect.wxss */
+.view-item {
+  float:left;
+  margin-left: 10rpx;
+  margin-top: 20rpx;
+  width: 30%;
+}
+
+.view-item-id {
+  font-size: 0.8em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.view-item-image {
+  width: 160rpx;
+  height: 160rpx;
+  display: flex;
+  margin: 0 auto;
+}
+
+#item-title-container {
+  display: flex;
+  align-items: center;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+#item-title-container #item-title {
+  font-size: 1.3rem;
+}
+
+#item-title-container #bar {
+  width:45rpx;
+  height:45rpx;
+}
