@@ -68,6 +68,7 @@ Page({
     var that = this;
     wx.scanCode({
       success: (res) => {
+        console.log(res)
         wx.navigateTo({
           url: res.result,
         })

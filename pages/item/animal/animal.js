@@ -8,7 +8,6 @@ Page({
     exhibitImageHeight: 0,
   },
 
-
   /** 生命周期函数--监听页面加载完成*/
   onLoad: function (options) {
     //跳转测试
@@ -24,8 +23,11 @@ Page({
     })
 
     wx.request({
-      url: "http://172.18.233.8:52080/search/animal",
-      data: {specimenId: id},
+      url: "https://www.sysubiomuseum.com/search/animal",
+      data: {
+        specimenId: id,
+        openid: wx.getStorageSync('openid')
+      },
       method: "GET",
       dataType: "json",
       success: function(res) {
@@ -50,9 +52,8 @@ Page({
         }
         specimenDes += j + 1 + ")" + specimenDesArray[specimenDesArray.length - 1];
         var collectPosition = (res.data.specimen_province === null ? "" : res.data.specimen_province) + (res.data.specimen_city === null ? "" : res.data.specimen_city) + (res.data.specimen_loc === null ? "" : res.data.specimen_loc);
-
         that.setData({
-          pic_src: (res.data.specimen_pic).map(x => "http://172.18.233.8:52080/pic/" + x), 
+          pic_src: (res.data.specimen_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x), 
           exhibit_information: {
             share: "/res/share.png",
             bar: "/res/bar.png",

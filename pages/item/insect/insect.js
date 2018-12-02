@@ -25,8 +25,11 @@ Page({
     });
 
     wx.request({
-      url: "http://172.18.233.8:52080/search/insect",
-      data: {specimenId: id},
+      url: "https://www.sysubiomuseum.com/search/insect",
+      data: {
+        specimenId: id,
+        openid: wx.getStorageSync('openid')
+      },
       method: "GET",
       dataType: "json",
       success: function(res) {
@@ -40,7 +43,7 @@ Page({
         var loc = res.data.specimen_loc === null ? "" : res.data.specimen_loc;
 
         that.setData({
-          pic_src: (res.data.specimen_pic).map(x => "http://172.18.233.8:52080/pic/" + x),
+          pic_src: (res.data.specimen_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x),
           exhibit_information: {
             name: res.data.spec_chName === null ? "" : res.data.spec_chName,
             nickname: res.data.spec_commonName === null ? "" : "（俗名：" + res.data.spec_commonName + "）",

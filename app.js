@@ -13,7 +13,7 @@ App({
         var code = res.code
         wx.setStorageSync("login_code", res.code)
         wx.request({
-          url: 'http://172.18.233.8:52080/userAuth/login',
+          url: 'https://www.sysubiomuseum.com/userAuth/login',
           data: {data: code},
           method: "GET",
           dataType: 'json',

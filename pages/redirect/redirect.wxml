@@ -1,0 +1,17 @@
+<!--pages/redirect/redirect.wxml-->
+<view class="container">
+  <view id="itemscontainer">
+    <view id='item-title-container'>
+      <image id='bar' src="/res/bar.png" mode='aspectFit'></image>
+      <text id='item-title'>该展柜包含的展品有</text>
+    </view>
+    <scroll-view>
+      <view class="view-item" wx:for='{{items}}'>
+        <navigator url="/pages/item/animal/animal?id={{item.id}}">
+          <image class="view-item-image" src="https://www.sysubiomuseum.com/pic/animalpic/small/{{item.id}}.jpg/"></image>
+          <text class="view-item-id">{{item.id}}</text>
+        </navigator>
+      </view>
+    </scroll-view>
+  </view>
+</view>

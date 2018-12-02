@@ -12,7 +12,8 @@
     "pages/item/ExhibitionHallA/ExhibitionHallA",
     "pages/item/ExhibitionHallB/ExhibitionHallB",
     "pages/user/user",
-    "pages/edituserinfo/edituserinfo"
+    "pages/edituserinfo/edituserinfo",
+    "pages/redirect/redirect"
   ],
   "window": {
     "backgroundTextStyle": "light",

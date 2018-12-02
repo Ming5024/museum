@@ -10,7 +10,7 @@
 <view class='tab'>
   <view class="tab-item {{currentTab==0?'active':''}}" data-current='0' bindtap='clickTab'>展品信息</view>
   <view class="tab-item {{currentTab==1?'active':''}}" data-current='1' bindtap='clickTab'>相关推荐</view>
-</view> 
+</view>
 <view id='detail' wx:if="{{currentTab==0}}" >
   <view id='flex-container' >
     <view id='flex-view1'>
@@ -64,5 +64,8 @@
         <text>{{exhibit_information.distribution}}</text>
       </view>
     </view>
+    <!-- <view id='aricle-item5'>
+      <video id="myVideo" src="https://vdse.bdstatic.com//535c40633134d617f63877b31daa8c80?authorization=bce-auth-v1/fb297a5cc0fb434c971b8fa103e8dd7b/2017-05-11T09:02:31Z/-1//5234d883f4ad10a2e44d0a382fbd2706e01d3244caadf1294fec3128b73b9789.mp4" controls></video>
+    </view> -->
   </view>
 </view>
