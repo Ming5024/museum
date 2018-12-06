@@ -46,7 +46,7 @@ swiper {
 
 #flex-container {
   margin-left: 25rpx;
-  margin-right: 60rpx;
+  margin-right: 40rpx;
 }
 
 #flex-view1 {
@@ -65,6 +65,7 @@ swiper {
 
 #flex-view1-item {
   display:flex;
+  flex: 0.95;
   align-items: flex-end;
 }
 
