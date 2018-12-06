@@ -19,6 +19,7 @@
         <image id='gender' src='{{exhibit_information.gender}}' mode='aspectFit'></image>
         <text id='nickname'>{{exhibit_information.nickname}}</text>
       </view>
+      <image src='{{hasFavor===true ? "/res/favorites.png" : "/res/unfavorites.png"}}' mode='aspectFit' bindtap='setFavor'></image>
       <image src='{{exhibit_information.share}}' mode='aspectFit'></image>
     </view>
     <view id='flex-view2'>
