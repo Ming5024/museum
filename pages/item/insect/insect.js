@@ -4,6 +4,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    id: '',
     currentTab: 0,
     exhibitImageHeight: 0,
   },
@@ -13,7 +14,8 @@ Page({
    */
   onLoad: function (options) {
     //跳转测试
-    var id = options.id;
+    this.id = options.id;
+    // var id = options.id;
     var that = this;
 
     wx.getSystemInfo({
@@ -27,12 +29,13 @@ Page({
     wx.request({
       url: "https://www.sysubiomuseum.com/search/insect",
       data: {
-        specimenId: id,
+        specimenId: this.id,
         openid: wx.getStorageSync('openid')
       },
       method: "GET",
       dataType: "json",
       success: function(res) {
+        console.log(res)
         var speciDes = res.data.specimen_des === null ? "" : res.data.specimen_des;
         if (speciDes != "") {
           speciDes = sepciDes.match(/.*?。/).map((e, i) => i + 1 + ")" + e + "\n").reduce((a, b) => a.concat(b));
@@ -44,6 +47,7 @@ Page({
 
         that.setData({
           pic_src: (res.data.specimen_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x),
+          hasFavor: res.data.hasFavor,
           exhibit_information: {
             name: res.data.spec_chName === null ? "" : res.data.spec_chName,
             nickname: res.data.spec_commonName === null ? "" : "（俗名：" + res.data.spec_commonName + "）",
@@ -121,6 +125,66 @@ Page({
       that.setData({
         currentTab: e.target.dataset.current
       });
+    }
+  },
+
+  setFavor: function () {
+    var that = this;
+    if (this.data.hasFavor) {    //取消收藏
+      wx.request({
+        url: "https://www.sysubiomuseum.com/userFavor/removefavor",
+        data: {
+          specimenId: this.id,
+          openid: wx.getStorageSync('openid'),
+          specimenType: 'insect'
+        },
+        method: "GET",
+        dataType: "json",
+        success: function (res) {
+          if (res.data.result === 'success') {
+            that.setData({
+              hasFavor: false
+            });
+            wx.showToast({
+              title: '取消收藏',
+              icon: 'success',
+              duration: 1200
+            })
+          }
+        }
+      })
+    }
+    else {                      //收藏
+      wx.request({
+        url: "https://www.sysubiomuseum.com/userFavor/addfavor",
+        data: {
+          specimenId: this.id,
+          openid: wx.getStorageSync('openid'),
+          specimenType: 'insect'
+        },
+        method: "GET",
+        dataType: "json",
+        success: function (res) {
+          if (res.data.result === 'success') {
+            that.setData({
+              hasFavor: true
+            });
+            wx.showToast({
+              title: '收藏成功',
+              icon: 'success',
+              duration: 1200
+            })
+          }
+          else {
+            wx.showToast({
+              title: '收藏失败，请重试',
+              image: '/res/failtip.png',//自定义图标的本地路径，image 的优先级高于 icon
+              icon: 'success',
+              duration: 1200
+            })
+          }
+        }
+      })
     }
   },
 

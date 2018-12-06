@@ -4,6 +4,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    id: 0,
     currentTab: 0,
     exhibitImageHeight: 0,
   },
@@ -11,7 +12,8 @@ Page({
   /** 生命周期函数--监听页面加载完成*/
   onLoad: function (options) {
     //跳转测试
-    var id = options.id;
+    this.id = options.id;
+    // var id = options.id;
     var that = this;
 
     wx.getSystemInfo({
@@ -25,7 +27,7 @@ Page({
     wx.request({
       url: "https://www.sysubiomuseum.com/search/animal",
       data: {
-        specimenId: id,
+        specimenId: this.id,
         openid: wx.getStorageSync('openid')
       },
       method: "GET",
@@ -54,7 +56,7 @@ Page({
         var collectPosition = (res.data.specimen_province === null ? "" : res.data.specimen_province) + (res.data.specimen_city === null ? "" : res.data.specimen_city) + (res.data.specimen_loc === null ? "" : res.data.specimen_loc);
         that.setData({
           pic_src: (res.data.specimen_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x), 
-          hasFavor: true,
+          hasFavor: res.data.hasFavor,
           exhibit_information: {
             share: "/res/share.png",
             bar: "/res/bar.png",
@@ -135,15 +137,63 @@ Page({
   },
 
   setFavor: function() {
+    var that = this;
     if(this.data.hasFavor) {    //取消收藏
-      
+      wx.request({
+        url: "https://www.sysubiomuseum.com/userFavor/removefavor",
+        data: {
+          specimenId: this.id,
+          openid: wx.getStorageSync('openid'),
+          specimenType: 'animal'
+        },
+        method: "GET",
+        dataType: "json",
+        success: function (res) {
+          if(res.data.result === 'success') {
+            that.setData({
+              hasFavor: false
+            });
+            wx.showToast({
+              title: '取消收藏',
+              icon: 'success',
+              duration: 1200
+            })
+          }
+        }
+      })
     }
     else {                      //收藏
-
+      wx.request({
+        url: "https://www.sysubiomuseum.com/userFavor/addfavor",
+        data: {
+          specimenId: this.id,
+          openid: wx.getStorageSync('openid'),
+          specimenType: 'animal'
+        },
+        method: "GET",
+        dataType: "json",
+        success: function (res) {
+          if (res.data.result === 'success') {
+            that.setData({
+              hasFavor: true
+            });
+            wx.showToast({
+              title: '收藏成功',
+              icon: 'success',
+              duration: 1200
+            })
+          }
+          else {
+            wx.showToast({
+              title: '收藏失败，请重试',
+              image: '/res/failtip.png',//自定义图标的本地路径，image 的优先级高于 icon
+              icon: 'success',
+              duration: 1200
+            })
+          }
+        }
+      })
     }
-    this.setData({
-      hasFavor: !this.data.hasFavor
-    })
   },
 
   imageLoad: function(e) {

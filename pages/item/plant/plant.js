@@ -4,6 +4,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    id: 0,
     currentTab: 0,
     exhibitImageHeight: 0,
   },
@@ -13,7 +14,8 @@ Page({
    */
   onLoad: function (options) {
     //跳转测试
-    var id = options.id;
+    this.id = options.id;
+    // var id = options.id;
     var that = this;
 
     wx.getSystemInfo({
@@ -28,11 +30,12 @@ Page({
       url: "https://www.sysubiomuseum.com/search/plant",
       method: "GET",
       data: {
-        specimenId: id,
+        specimenId: this.id,
         openid: wx.getStorageSync('openid')
       },
       dataType: "json",
       success: function(res) {
+        console.log(res)
         var date = res.data.specimen_colDate;
         if (date != null) {
           date.match(/(\d{4})(\d{0,2})(\d{0,2})/);
@@ -52,6 +55,7 @@ Page({
 
         that.setData({
           // pic_src: (res.data.specimen_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x),
+          hasFavor: res.data.hasFavor,
           exhibit_information: {
             name: res.data.spec_chName,
             nickname: res.data.spec_Alias === null ? "" : "俗名：" + res.data.spec_Alias,
@@ -127,6 +131,66 @@ Page({
       that.setData({
         currentTab: e.target.dataset.current
       });
+    }
+  },
+
+  setFavor: function () {
+    var that = this;
+    if (this.data.hasFavor) {    //取消收藏
+      wx.request({
+        url: "https://www.sysubiomuseum.com/userFavor/removefavor",
+        data: {
+          specimenId: this.id,
+          openid: wx.getStorageSync('openid'),
+          specimenType: 'plant'
+        },
+        method: "GET",
+        dataType: "json",
+        success: function (res) {
+          if (res.data.result === 'success') {
+            that.setData({
+              hasFavor: false
+            });
+            wx.showToast({
+              title: '取消收藏',
+              icon: 'success',
+              duration: 1200
+            })
+          }
+        }
+      })
+    }
+    else {                      //收藏
+      wx.request({
+        url: "https://www.sysubiomuseum.com/userFavor/addfavor",
+        data: {
+          specimenId: this.id,
+          openid: wx.getStorageSync('openid'),
+          specimenType: 'plant'
+        },
+        method: "GET",
+        dataType: "json",
+        success: function (res) {
+          if (res.data.result === 'success') {
+            that.setData({
+              hasFavor: true
+            });
+            wx.showToast({
+              title: '收藏成功',
+              icon: 'success',
+              duration: 1200
+            })
+          }
+          else {
+            wx.showToast({
+              title: '收藏失败，请重试',
+              image: '/res/failtip.png',//自定义图标的本地路径，image 的优先级高于 icon
+              icon: 'success',
+              duration: 1200
+            })
+          }
+        }
+      })
     }
   },
 
