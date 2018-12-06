@@ -16,7 +16,7 @@
     <view id='flex-view1'>
       <view id='flex-view1-item'>
         <text id='name'>{{exhibit_information.name}}</text>
-        <text id='nickname'>{{exhibit_information.nickname}}</text>
+        <text id='nickname' style='font-size:0.9rem'>{{exhibit_information.nickname}}</text>
       </view>
       <image src='{{hasFavor===true ? "/res/favorites.png" : "/res/unfavorites.png"}}' mode='aspectFit' bindtap='setFavor'></image>
       <image src='{{exhibit_information.share}}' mode='aspectFit'></image>
