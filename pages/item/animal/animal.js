@@ -54,6 +54,7 @@ Page({
         var collectPosition = (res.data.specimen_province === null ? "" : res.data.specimen_province) + (res.data.specimen_city === null ? "" : res.data.specimen_city) + (res.data.specimen_loc === null ? "" : res.data.specimen_loc);
         that.setData({
           pic_src: (res.data.specimen_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x), 
+          hasFavor: true,
           exhibit_information: {
             share: "/res/share.png",
             bar: "/res/bar.png",
@@ -131,6 +132,18 @@ Page({
         currentTab: e.target.dataset.current
       });
     }
+  },
+
+  setFavor: function() {
+    if(this.data.hasFavor) {    //取消收藏
+      
+    }
+    else {                      //收藏
+
+    }
+    this.setData({
+      hasFavor: !this.data.hasFavor
+    })
   },
 
   imageLoad: function(e) {
