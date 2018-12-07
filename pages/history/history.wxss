@@ -1,0 +1,43 @@
+/* pages/history/history.wxss */
+
+.list-view{ 
+  display: flex;  
+  flex-direction: row;  
+  margin:15rpx;
+  padding: 5rpx 0 5rpx 15rpx;
+  height:170rpx;
+  border: 1px solid grey;
+}  
+
+.left-list-view{
+  margin-left: 20rpx;  
+  display: flex;  
+  flex-direction: row;  
+}  
+
+.left-image{
+  display: flex;
+  width: 180rpx;
+  height:180rpx;
+}
+
+.right-list-view{
+  width: 590rpx;
+  height: 150rpx;
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-name {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.right-visited {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}

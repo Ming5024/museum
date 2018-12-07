@@ -160,7 +160,8 @@ Page({
         data: {
           specimenId: this.id,
           openid: wx.getStorageSync('openid'),
-          specimenType: 'insect'
+          specimenType: 'insect',
+          chName: this.data.exhibit_information.name
         },
         method: "GET",
         dataType: "json",

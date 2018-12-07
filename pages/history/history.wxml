@@ -1,0 +1,16 @@
+<!--pages/history/history.wxml-->
+<view>
+  <block wx:for='{{history}}'>
+    <view class='list-view'>
+      <image class='left-image' src="{{item.pics}}" mode='aspectFit'></image> 
+      <view class="right-list-view">
+        <view class="right-name">
+          <text>{{item.chName}}</text>
+        </view>
+        <view class="right-visited">
+          <text>{{item.visited}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
