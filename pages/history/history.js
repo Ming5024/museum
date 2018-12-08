@@ -42,7 +42,6 @@ Page({
       method: "GET",
       dataType: "json",
       success: function (res) {
-        console.log(res.data.history)
         var history = res.data.history.reverse();
         for(let i of history) {
           i.visited = that.convertDate(i.visited);
