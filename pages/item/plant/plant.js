@@ -54,7 +54,7 @@ Page({
         }
 
         that.setData({
-          // pic_src: (res.data.specimen_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x),
+          pic_src: (res.data.specimen_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x),
           hasFavor: res.data.hasFavor,
           exhibit_information: {
             name: res.data.spec_chName,

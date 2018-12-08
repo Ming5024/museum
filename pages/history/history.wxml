@@ -1,16 +1,18 @@
 <!--pages/history/history.wxml-->
 <view>
   <block wx:for='{{history}}'>
-    <view class='list-view'>
-      <image class='left-image' src="{{item.pics}}" mode='aspectFit'></image> 
-      <view class="right-list-view">
-        <view class="right-name">
-          <text>{{item.chName}}</text>
-        </view>
-        <view class="right-visited">
-          <text>{{item.visited}}</text>
+    <navigator url='/pages/item/{{item.specimanType}}/{{item.specimanType}}?id={{item.specimanNum}}'>
+      <view class='list-view'>
+        <image class='left-image' src="{{item.pics}}"></image> 
+        <view class="right-list-view">
+          <view class="right-name">
+            <text style="margin: auto 0">{{item.chName}}</text>
+          </view>
+          <view class="right-visited">
+            <text>{{item.visited}}</text>
+          </view>
         </view>
       </view>
-    </view>
+    </navigator>
   </block>
 </view>

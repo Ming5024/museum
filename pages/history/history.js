@@ -25,8 +25,9 @@ Page({
         console.log(res.data.history)
         var history = res.data.history.reverse();
         for(let i of history) {
+          i.visited = that.convertDate(i.visited);
           if(i.pics.length == 0) {
-            i.pics = "/res/unfavor.png"
+            i.pics = "/res/unfavorites.png"
           }
           else {
             i.pics = `https://www.sysubiomuseum.com/pic/${i.pics[0]}`
@@ -86,5 +87,45 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  /**
+   * 用户访问时间转换
+   */
+  convertDate: function(s) {
+    var visitedDate = new Date(Date.parse(s));
+    var presentDate = new Date();
+    var minute = 1000 * 60;      //把分，时，天，周，半个月，一个月用毫秒表示
+    var hour = minute * 60;
+    var day = hour * 24;
+    var week = day * 7;
+    var halfamonth = day * 15;
+    var month = day * 30;
+
+    var diffValue = presentDate - visitedDate;//时间差
+
+    if (diffValue < 0) { return; }
+
+    var minC = diffValue / minute;  //计算时间差的分，时，天，周，月
+    var hourC = diffValue / hour;
+    var dayC = diffValue / day;
+    var weekC = diffValue / week;
+    var monthC = diffValue / month;
+
+    var result = "";
+    if (monthC >= 1) {
+      return `${parseInt(monthC)}月前`;
+    }
+    else if (dayC >= 1) {
+      return `${parseInt(dayC)}天前`;
+    }
+    else if (hourC >= 1) {
+      return `${parseInt(hourC)}小时前`;
+    }
+    else if (minC >= 1) {
+      return `${parseInt(minC)}分钟前`;
+    } else {
+      return "刚刚";
+    }
   }
 })
