@@ -1,18 +1,34 @@
 <!--pages/history/history.wxml-->
 <view>
+  <view class="comment-btn">
+    <button 
+      wx:for="{{riderCommentList}}" 
+      wx:for-item="item" 
+      wx:key="item.index"  
+      bindtap="checkboxChange" 
+      data-value="{{item.value}}" 
+      data-index="{{index}}"  
+      checked="{{item.selected}}"
+      class="btn {{item.selected ? 'btn-selected' : ''}}" >
+      {{item.title}}
+    </button>
+  </view>
+
+  <view style="height:70rpx"></view>
+
   <block wx:for='{{history}}'>
-    <navigator url='/pages/item/{{item.specimanType}}/{{item.specimanType}}?id={{item.specimanNum}}'>
-      <view class='list-view'>
+    <!-- <navigator url='/pages/item/{{item.specimanType}}/{{item.specimanType}}?id={{item.specimanNum}}'> -->
+      <view class='list-view' data-item="{{item}}" bindtap='clickItem'>
         <image class='left-image' src="{{item.pics}}"></image> 
         <view class="right-list-view">
           <view class="right-name">
             <text style="margin: auto 0">{{item.chName}}</text>
           </view>
           <view class="right-visited">
-            <text>{{item.visited}}</text>
+            <text style="color: grey">{{item.visited}}</text>
           </view>
         </view>
       </view>
-    </navigator>
+    <!-- </navigator> -->
   </block>
 </view>
