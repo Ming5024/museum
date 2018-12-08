@@ -5,7 +5,27 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    riderCommentList: [{
+      value: 'ALL',
+      selected: false,
+      title: '所有'
+    }, {
+      value: 'animal',
+      selected: false,
+      title: '动物'
+    }, {
+        value: 'plant',
+        selected: false,
+        title: '植物'
+    }, {
+        value: 'insect',
+        selected: false,
+        title: '昆虫'
+    }, {
+        value: 'fossil',
+        selected: false,
+        title: '化石'
+    }]
   },
 
   /**
@@ -22,7 +42,6 @@ Page({
       method: "GET",
       dataType: "json",
       success: function (res) {
-        console.log(res.data.history)
         var history = res.data.history.reverse();
         for(let i of history) {
           i.visited = that.convertDate(i.visited);
@@ -34,7 +53,8 @@ Page({
           }
         }
         that.setData({
-          history: res.data.history
+          history: res.data.history,
+          storageHistory: res.data.history,
         })
       }
     })
@@ -127,5 +147,50 @@ Page({
     } else {
       return "刚刚";
     }
-  }
+  },
+
+  /**
+   * 跳转标本页
+   */
+  clickItem: function(event) {
+    var item = event.currentTarget.dataset.item;
+    wx.navigateTo({
+      url: `/pages/item/${item.specimanType}/${item.specimanType}?id=${item.specimanNum}`,
+    })
+  },
+
+  checkboxChange(e) {
+    console.log('checkboxChange e:', e);
+    if (e.target.dataset.value == 'ALL' && !this.data.riderCommentList[e.target.dataset.index].selected) {
+      //设置全选
+      for(let i = 4; i >= 0; i--) {
+        let string = "riderCommentList[" + i + "].selected"
+        console.log(string)
+        console.log(!this.data.riderCommentList[e.target.dataset.index].selected)
+        this.setData({
+          [string]: !this.data.riderCommentList[e.target.dataset.index].selected
+        })
+      }
+    }
+    else {
+      let string = "riderCommentList[" + e.target.dataset.index + "].selected"
+      console.log(string)
+      if (this.data.riderCommentList[0].selected && e.target.dataset.index !== 0) {
+        let all = "riderCommentList[0].selected"
+        this.setData({
+          [all]: !this.data.riderCommentList[e.target.dataset.index].selected
+        })
+      }
+      this.setData({
+        [string]: !this.data.riderCommentList[e.target.dataset.index].selected
+      })
+      console.log(this.data)
+    }
+    
+    let detailValue = this.data.riderCommentList.filter(it => it.selected && it.value != "ALL").map(it => it.value)
+    console.log('所有选中的值为：', detailValue)
+    this.setData({
+      history:this.data.storageHistory.filter(it => detailValue.indexOf(it.specimanType) !== -1)
+    })
+  },
 })
