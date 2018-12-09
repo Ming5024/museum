@@ -1,0 +1,98 @@
+/* pages/favorite/favorite.wxss */
+#collection-area {
+  margin: 30rpx 15rpx 10rpx 15rpx;
+  /* border-top:1px solid #dcdcdc;
+  border-left:1px solid #dcdcdc;
+  border-right:1px solid #dcdcdc;
+  border-bottom:1px solid #dcdcdc;
+  border-radius: 10rpx; */
+}
+
+.collection-area-item-top .bar{
+  width:10rpx;
+  height:1.3em;
+  background:#1a9475;
+  display:inline-block;
+  vertical-align:bottom;
+  margin-right:8px;
+}
+
+.collection-area-item-top {
+  display:flex;
+  justify-content:space-between;
+  padding:9px;
+  align-items:center;
+  border-top:1px solid #dcdcdc;
+  border-left:1px solid #dcdcdc;
+  border-right:1px solid #dcdcdc;
+  border-bottom:1px solid #dcdcdc;
+  border-radius: 10rpx;
+}
+
+#right-arrow {
+  width:20px;
+  height:20px;
+}
+
+.collection-area-item-bottom {
+  margin-left:10px;
+  margin-right:10px;
+  border-left:1px solid #dcdcdc;
+  border-right:1px solid #dcdcdc;
+  max-height: 700rpx;
+  overflow-y: scroll;
+}
+
+.fossil {
+  border-bottom:1px solid #dcdcdc;
+}
+
+.list-view{
+  padding: 0 10rpx;
+  display: flex;  
+  flex-direction: row;
+  height:130rpx;
+  border-bottom: 1px solid #dcdcdc;
+}  
+
+.left-list-view{
+  margin-left: 20rpx;  
+  display: flex;  
+  flex-direction: row;  
+}  
+
+.left-image{
+  display: flex;
+  width: 100rpx;
+  height:100rpx;
+  margin: auto 0;
+}
+
+.right-list-view{
+  width: 590rpx;
+  height: 110rpx;
+  margin-top: 10rpx;
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-name {
+  display: flex;
+  flex: 1.5;
+  flex-direction: column;
+}
+
+.right-visited {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  font-size: 0.8rem;
+}
+
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}

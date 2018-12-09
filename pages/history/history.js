@@ -35,7 +35,7 @@ Page({
     var that = this;
 
     wx.request({
-      url: "https://www.sysubiomuseum.com/userHistory/getHistory",
+      url: "https://www.sysubiomuseum.com/userHistory/gethistory",
       data: {
         openid: wx.getStorageSync('openid')
       },
@@ -46,7 +46,7 @@ Page({
         for(let i of history) {
           i.visited = that.convertDate(i.visited);
           if(i.pics.length == 0) {
-            i.pics = "/res/unfavorites.png"
+            i.pics = "/res/notfound.png"
           }
           else {
             i.pics = `https://www.sysubiomuseum.com/pic/${i.pics[0]}`
