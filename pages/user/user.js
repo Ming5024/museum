@@ -101,12 +101,15 @@ Page({
   },
 
   modal_collection: function(e){
-    wx.showModal({
-      title: '提示',
-      content: '该功能正在路上，敬请期待',
-      duration:1000,
-      showCancel:false,
-    }) 
+    // wx.showModal({
+    //   title: '提示',
+    //   content: '该功能正在路上，敬请期待',
+    //   duration:1000,
+    //   showCancel:false,
+    // }) 
+    wx.navigateTo({
+      url: '/pages/collection/collection',
+    })
   },
   modal_history: function (e) {
     // wx.showModal({

@@ -1,0 +1,27 @@
+<view id="collection-area">  
+  <block wx:for="{{collectionTypes}}" wx:for-index="typeIndex">
+    <view class="collection-area-item">
+      <view class="collection-area-item-top" bindtap="showCollections" data-fold="{{fold[typeIndex]}}" data-index="{{typeIndex}}">
+        <view class="bar"></view>
+        <text style="flex:1">{{item.typechName}}</text>
+        <image id="right-arrow" src="{{arrowUrl[typeIndex]}}"/>
+      </view>
+      <view class="collection-area-item-bottom" style="display:{{collectionsVisible[typeIndex]}}">
+        <!-- <block wx:for="{{item.data}}" wx:for-item="collection"> -->
+        <block wx:for='{{item.data}}' wx:for-item="collection">
+          <view class='list-view' data-item="{{collection}}" bindtap='clickItem'>
+            <image class='left-image' src="{{collection.pics}}"></image> 
+            <view class="right-list-view">
+              <view class="right-name">
+                <text style="margin: auto 0">{{collection.chName}}</text>
+              </view>
+              <view class="right-visited">
+                <text style="color: grey">{{collection.favored}}</text>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </block>
+</view>

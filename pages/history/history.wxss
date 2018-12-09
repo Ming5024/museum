@@ -27,7 +27,7 @@
 .right-list-view{
   width: 590rpx;
   height: 150rpx;
-  margin-top: 20rpx;
+  margin-top: 8rpx;
   margin-left: 20rpx;
   display: flex;
   flex-direction: column;
