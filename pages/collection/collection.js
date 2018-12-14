@@ -49,7 +49,7 @@ Page({
         var favors = res.data.favors;
         for (let i of favors) {
           if (i.pics.length == 0) {
-            i.pics = "/res/notfound.png"
+            i.pics = "/res/404.png"
           }
           else {
             i.pics = `https://www.sysubiomuseum.com/pic/${i.pics[0]}`

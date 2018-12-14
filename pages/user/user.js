@@ -45,26 +45,40 @@ Page({
       })
     }
 
+    this.setUserInfo()
+  },
+  getUserInfo: function (e) {
+    console.log(e)
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
+    })
+    wx.setStorageSync("encrypteddata", e.detail.encryptedData)
+    wx.setStorageSync("iv", e.detail.iv)
+    this.setUserInfo()
+  },
+  setUserInfo: function() {
     wx.request({
       url: 'https://www.sysubiomuseum.com/userAuth/userinfo',
-      header:{
+      header: {
         'content-type': "application/x-www-form-urlencoded"
-      },  
-      data:{
-        session_key: wx.getStorageSync("session_key"), 
-        iv: wx.getStorageSync("iv"), 
+      },
+      data: {
+        session_key: wx.getStorageSync("session_key"),
+        iv: wx.getStorageSync("iv"),
         encryptedData: wx.getStorageSync("encrypteddata")
       },
       method: "POST",
-      success: res=>{
+      success: res => {
         this.setData({
           birth: res.data.birth,
-          sex: res.data.sex == 'man'? '男': (res.data.sex == 'woman' ? '女': ""),
+          sex: res.data.sex == 'man' ? '男' : (res.data.sex == 'woman' ? '女' : ""),
           userName: res.data.userName,
           school: res.data.school
         })
 
-        if (res.data.birth != '' && res.data.birth != null){
+        if (res.data.birth != '' && res.data.birth != null) {
           //计算年龄
           var now = new Date()
           var now_year = now.getFullYear();
@@ -91,36 +105,37 @@ Page({
       }
     })
   },
-  getUserInfo: function (e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  },
 
   modal_collection: function(e){
-    // wx.showModal({
-    //   title: '提示',
-    //   content: '该功能正在路上，敬请期待',
-    //   duration:1000,
-    //   showCancel:false,
-    // }) 
-    wx.navigateTo({
-      url: '/pages/collection/collection',
-    })
+    console.log(wx.getStorageSync('encrypteddata'))
+    if (wx.getStorageSync('encrypteddata') === '') {
+      wx.showModal({
+        title: '提示',
+        content: '请登录后再使用该功能！',
+        duration: 1000,
+        showCancel: false,
+      })
+    }
+    else {
+      wx.navigateTo({
+        url: '/pages/collection/collection',
+      })
+    }
   },
   modal_history: function (e) {
-    // wx.showModal({
-    //   title: '提示',
-    //   content: '该功能正在路上，敬请期待',
-    //   duration: 1000,
-    //   showCancel: false,
-    // })
-    wx.navigateTo({
-      url: '/pages/history/history',
-    })
+    if (wx.getStorageSync('encrypteddata') === '') {
+      wx.showModal({
+        title: '提示',
+        content: '请登录后再使用该功能！',
+        duration: 1000,
+        showCancel: false,
+      })
+    }
+    else {
+      wx.navigateTo({
+        url: '/pages/history/history',
+      })
+    }
   },
   modal_questionaire: function (e) {
     wx.showModal({

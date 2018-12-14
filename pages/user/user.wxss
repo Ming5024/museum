@@ -61,3 +61,12 @@
   margin-top: 4vw;
   margin-bottom: 4vw;
 }
+
+button {
+  background-color:#469276;
+  border:none;
+}
+
+button::after{
+  border: none;
+}

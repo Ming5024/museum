@@ -2,7 +2,7 @@
 <view class="container">
 
   <view class="usercard">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取用户信息 </button>
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 登录 </button>
     <block wx:else>
       <image class="useravatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
       <view class='userinfo'>

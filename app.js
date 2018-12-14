@@ -11,6 +11,7 @@ App({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         var code = res.code
+        console.log(res.code)
         wx.setStorageSync("login_code", res.code)
         wx.request({
           url: 'https://www.sysubiomuseum.com/userAuth/login',
@@ -18,6 +19,7 @@ App({
           method: "GET",
           dataType: 'json',
           success: res => {
+            console.log(res)
             wx.setStorageSync("openid", res.data.openid)
             wx.setStorageSync("session_key", res.data.session_key)
           }
