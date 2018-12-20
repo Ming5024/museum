@@ -31,7 +31,7 @@ Page({
       method: "GET",
       data: {
         chName: this.id,
-        openid: wx.getStorageSync('openid')
+        openid: wx.getStorageSync('encrypteddata') === '' ? 'undefined' : wx.getStorageSync('openid')
       },
       dataType: "json",
       success: function(res) {
@@ -114,6 +114,15 @@ Page({
 
   setFavor: function () {
     var that = this;
+    if (wx.getStorageSync('encrypteddata') === '') {
+      wx.showModal({
+        title: '提示',
+        content: '请前往个人中心登录后再使用该功能！',
+        duration: 1000,
+        showCancel: false,
+      })
+      return;
+    }
     if (this.data.hasFavor) {    //取消收藏
       wx.request({
         url: "https://www.sysubiomuseum.com/userFavor/removefavor",
