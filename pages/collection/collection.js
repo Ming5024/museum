@@ -55,10 +55,10 @@ Page({
             i.pics = `https://www.sysubiomuseum.com/pic/${i.pics[0]}`
           }
         }
-        collectionTypeArray[0]['data'] = res.data.favors.filter(it => it.specimanType === 'animal')
-        collectionTypeArray[1]['data'] = res.data.favors.filter(it => it.specimanType === 'plant')
-        collectionTypeArray[2]['data'] = res.data.favors.filter(it => it.specimanType === 'insect')
-        collectionTypeArray[3]['data'] = res.data.favors.filter(it => it.specimanType === 'fossil')
+        collectionTypeArray[0]['data'] = res.data.favors.filter(it => it.specType === 'animal')
+        collectionTypeArray[1]['data'] = res.data.favors.filter(it => it.specType === 'plant')
+        collectionTypeArray[2]['data'] = res.data.favors.filter(it => it.specType === 'insect')
+        collectionTypeArray[3]['data'] = res.data.favors.filter(it => it.specType === 'fossil')
         console.log(collectionTypeArray)
         that.setData({
           collectionTypes: collectionTypeArray,
@@ -154,7 +154,7 @@ Page({
   clickItem: function (event) {
     var item = event.currentTarget.dataset.item;
     wx.navigateTo({
-      url: `/pages/item/${item.specimanType}/${item.specimanType}?id=${item.specimanNum}`,
+      url: `/pages/item/${item.specType}/${item.specType}?id=${item.specId}`,
     })
   },
 })

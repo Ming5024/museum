@@ -6,7 +6,7 @@ Page({
   data: {
     windowWidth: wx.getSystemInfoSync().windowWidth,
     windowHeight: wx.getSystemInfoSync().windowHeight,
-    covercontent: '每周二至周日9：00-17：00\n每周一闭馆（国家法定节假日除外）',
+    covercontent: '每周六至周日9：00-17：00\n每周一至周五闭馆（国家法定节假日除外）',
     intro: '',
     userInfo: {},
     hasUserInfo: false,

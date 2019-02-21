@@ -30,22 +30,20 @@ Page({
       url: "https://www.sysubiomuseum.com/search/fossil",
       method: "GET",
       data: {
-        chName: this.id,
+        specId: this.id,
         openid: wx.getStorageSync('encrypteddata') === '' ? 'undefined' : wx.getStorageSync('openid')
       },
       dataType: "json",
       success: function(res) {
-        console.log(res)
-        var temp = (res.data.specimen_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x);
         that.setData({
-          pic_src: (res.data.specimen_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x),
+          pic_src: res.data.spec_pic ? (res.data.spec_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x):[],
           hasFavor: res.data.hasFavor,
           exhibit_information: {
             name: res.data.spec_chName,
             category: res.data.spec_classifyPos === null ? "" : res.data.spec_classifyPOs,
             share: "/res/share.png",
             collect: (res.data.spec_collector === null ? "" : "采集人：" + res.data.spec_collector) + (res.data.spec_collectPos === null ? "" : " 采集地：" + res.data.spec_collectPos),
-            specimen_description: res.data.spec_description === null ? "" : res.data.spec_description,
+            specimen_description: res.data.spec_description === null ? "暂缺" : res.data.spec_description,
             bar: '/res/bar.png',
           }
         });
@@ -127,9 +125,9 @@ Page({
       wx.request({
         url: "https://www.sysubiomuseum.com/userFavor/removefavor",
         data: {
-          specimenId: this.id,
+          specId: this.id,
           openid: wx.getStorageSync('openid'),
-          specimenType: 'fossil'
+          specType: 'fossil'
         },
         method: "GET",
         dataType: "json",
@@ -151,9 +149,9 @@ Page({
       wx.request({
         url: "https://www.sysubiomuseum.com/userFavor/addfavor",
         data: {
-          specimenId: this.id,
+          specId: this.id,
           openid: wx.getStorageSync('openid'),
-          specimenType: 'fossil',
+          specType: 'fossil',
           chName: this.data.exhibit_information.name
         },
         method: "GET",

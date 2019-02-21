@@ -155,18 +155,15 @@ Page({
   clickItem: function(event) {
     var item = event.currentTarget.dataset.item;
     wx.navigateTo({
-      url: `/pages/item/${item.specimanType}/${item.specimanType}?id=${item.specimanNum}`,
+      url: `/pages/item/${item.specType}/${item.specType}?id=${item.specId}`,
     })
   },
 
   checkboxChange(e) {
-    console.log('checkboxChange e:', e);
     if (e.target.dataset.value == 'ALL' && !this.data.riderCommentList[e.target.dataset.index].selected) {
       //设置全选
       for(let i = 4; i >= 0; i--) {
         let string = "riderCommentList[" + i + "].selected"
-        console.log(string)
-        console.log(!this.data.riderCommentList[e.target.dataset.index].selected)
         this.setData({
           [string]: !this.data.riderCommentList[e.target.dataset.index].selected
         })
@@ -190,7 +187,7 @@ Page({
     let detailValue = this.data.riderCommentList.filter(it => it.selected && it.value != "ALL").map(it => it.value)
     console.log('所有选中的值为：', detailValue)
     this.setData({
-      history:this.data.storageHistory.filter(it => detailValue.indexOf(it.specimanType) !== -1)
+      history: this.data.storageHistory.filter(it => detailValue.indexOf(it.specType) !== -1)
     })
   },
 })

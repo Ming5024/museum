@@ -29,35 +29,43 @@ Page({
     wx.request({
       url: "https://www.sysubiomuseum.com/search/insect",
       data: {
-        specimenId: this.id,
+        specId: this.id,
         openid: wx.getStorageSync('encrypteddata') === '' ? 'undefined' : wx.getStorageSync('openid')
       },
       method: "GET",
       dataType: "json",
       success: function(res) {
         console.log(res)
-        var speciDes = res.data.specimen_des === null ? "" : res.data.specimen_des;
-        if (speciDes != "") {
-          speciDes = sepciDes.match(/.*?。/).map((e, i) => i + 1 + ")" + e + "\n").reduce((a, b) => a.concat(b));
-        }
+        var family = res.data.family_chName && res.data.family_chName !== null ? res.data.family_chName : "";
+        var genus = res.data.genus_chName && res.data.family_chName !== null ? res.data.genus_chName : "";
+        // var speciDes = res.data.specimen_des === null ? "" : res.data.specimen_des;
+        // if (speciDes != "") {
+        //   console.log(speciDes)
+        //   speciDes = speciDes.match(/.*?。/).map((e, i) => i + 1 + ")" + e + "\n").reduce((a, b) => a.concat(b));
+        // }
 
-        var province = res.data.specimen_province === null ? "" : res.data.specimen_province;
-        var city = res.data.specimen_city === null ? "" : res.data.specimen_city;
-        var loc = res.data.specimen_loc === null ? "" : res.data.specimen_loc;
-
+        // var province = res.data.specimen_province === null ? "" : res.data.specimen_province;
+        // var city = res.data.specimen_city === null ? "" : res.data.specimen_city;
+        // var loc = res.data.specimen_loc === null ? "" : res.data.specimen_loc;
         that.setData({
-          pic_src: (res.data.specimen_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x),
+          pic_src: res.data.spec_pic ? (res.data.spec_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x):[],
           hasFavor: res.data.hasFavor,
           exhibit_information: {
             name: res.data.spec_chName === null ? "" : res.data.spec_chName,
             nickname: res.data.spec_commonName === null ? "" : "（俗名：" + res.data.spec_commonName + "）",
             gender: res.data.specimen_sex === null ? "" : (res.data.specimen_sex === "♂" ? "/res/male.png" : "/res/female.png"),
-            category: (res.data.family_chName === null ? "" : res.data.family_chName) + (res.data.genus_chName === null ? "" : res.data.genus_chName),
+            category: family + genus,
             share: '/res/share.png',
-            position: res.data.specimen_pos === null ? "" : res.data.specimen_pos,
-            collect: (res.data.specimen_collector === null ? "" : "采集人：" + res.data.specimen_collector) + (res.data.specimen_colDate === null ? "" : " 采集日期：" + res.data.specimen_colDate)  + (province + city + loc  === "" ? "" : "\n采集地点：" + province + city + loc),
+            // position: res.data.specimen_pos === null ? "" : res.data.specimen_pos,
+            // collect: (res.data.specimen_collector === null ? "" : "采集人：" + res.data.specimen_collector) + (res.data.specimen_colDate === null ? "" : " 采集日期：" + res.data.specimen_colDate)  + (province + city + loc  === "" ? "" : "\n采集地点：" + province + city + loc),
+            family: family,
+            family_formFeature: res.data.family_formFeature,
+            family_habit: res.data.family_habit,
+            genus: genus,
+            genus_formFeature: res.data.genus_formFeature,
+            genus_habit: res.data.genus_habit,
             bar: '/res/bar.png',
-            specimen_description: speciDes,
+            // specimen_description: speciDes,
             morphology_description: res.data.spec_formDes === null ? "" : res.data.spec_formDes,
             body_length: res.data.spec_length === null ? "" : res.data.spec_length,
             body_color: res.data.spec_bodyColor === null ? "" : res.data.spec_bodyColor,
@@ -143,9 +151,9 @@ Page({
       wx.request({
         url: "https://www.sysubiomuseum.com/userFavor/removefavor",
         data: {
-          specimenId: this.id,
+          specId: this.id,
           openid: wx.getStorageSync('openid'),
-          specimenType: 'insect'
+          specType: 'insect'
         },
         method: "GET",
         dataType: "json",
@@ -167,9 +175,9 @@ Page({
       wx.request({
         url: "https://www.sysubiomuseum.com/userFavor/addfavor",
         data: {
-          specimenId: this.id,
+          specId: this.id,
           openid: wx.getStorageSync('openid'),
-          specimenType: 'insect',
+          specType: 'insect',
           chName: this.data.exhibit_information.name
         },
         method: "GET",

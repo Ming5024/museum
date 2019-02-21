@@ -27,49 +27,55 @@ Page({
     wx.request({
       url: "https://www.sysubiomuseum.com/search/animal",
       data: {
-        specimenId: this.id,
+        specId: this.id,
         openid: wx.getStorageSync('encrypteddata') === '' ? 'undefined' : wx.getStorageSync('openid')
       },
       method: "GET",
       dataType: "json",
       success: function(res) {
-        var order = res.data.order_chName === null ? "" : res.data.order_chName;
-        var family = res.data.family_chName === null ? "" : res.data.family_chName;
-        var genus = res.data.genus_chName === null ? "" : res.data.genus_chName;
-        var date = res.data.specimen_colDate === null ? "" : res.data.specimen_colDate;
-        var formatDate = "";
-        if (date != "") {
-          date = date.match(/\d+/g);
-          for (var i = 0; i < date.length - 1; i++) {
-            formatDate += date[i] + "-";
-          }
-          formatDate += date[date.length - 1];
-        }
+        var order = res.data.order_chName && res.data.order_chName !== null ? res.data.order_chName : "";
+        var family = res.data.family_chName && res.data.family_chName !== null ? res.data.family_chName : "";
+        var genus = res.data.genus_chName && res.data.genus_chName !== null ? res.data.genus_chName : "";
+        // var date = res.data.specimen_colDate === null ? "" : res.data.specimen_colDate;
+        // var formatDate = "";
+        // if (date != "") {
+        //   date = date.match(/\d+/g);
+        //   for (var i = 0; i < date.length - 1; i++) {
+        //     formatDate += date[i] + "-";
+        //   }
+        //   formatDate += date[date.length - 1];
+        // }
       
-        var specimenDesArray = res.data.specimen_des === null ? "" : res.data.specimen_des;
-        specimenDesArray = specimenDesArray.split(" ");
-        var specimenDes = "";
-        for (var j = 0; j < specimenDesArray.length - 1; j++) {
-          specimenDes += j + 1 + ")" + specimenDesArray[j] + "\n";
-        }
-        specimenDes += j + 1 + ")" + specimenDesArray[specimenDesArray.length - 1];
-        var collectPosition = (res.data.specimen_province === null ? "" : res.data.specimen_province) + (res.data.specimen_city === null ? "" : res.data.specimen_city) + (res.data.specimen_loc === null ? "" : res.data.specimen_loc);
+        // var specimenDesArray = res.data.specimen_des === null ? "" : res.data.specimen_des;
+        // specimenDesArray = specimenDesArray.split(" ");
+        // var specimenDes = "";
+        // for (var j = 0; j < specimenDesArray.length - 1; j++) {
+        //   specimenDes += j + 1 + ")" + specimenDesArray[j] + "\n";
+        // }
+        // specimenDes += j + 1 + ")" + specimenDesArray[specimenDesArray.length - 1];
+        // var collectPosition = (res.data.specimen_province === null ? "" : res.data.specimen_province) + (res.data.specimen_city === null ? "" : res.data.specimen_city) + (res.data.specimen_loc === null ? "" : res.data.specimen_loc);
         that.setData({
-          pic_src: (res.data.specimen_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x), 
+          pic_src: (res.data.spec_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x), 
           hasFavor: res.data.hasFavor,
           exhibit_information: {
             share: "/res/share.png",
             bar: "/res/bar.png",
             name: res.data.spec_chName,
             nickname: res.data.spec_commonName === null ? "" : "(俗名：" + res.data.spec_commonName + ")",
-            gender: res.data.specimen_sex === "♂" ? "/res/male.png" : "/res/female.png",
+            // gender: res.data.specimen_sex === "♂" ? "/res/male.png" : "/res/female.png",
             category: order + family + genus,
+            order: order,
+            order_description: res.data.order_des,
+            family: family,
+            family_description: res.data.family_des,
+            genus: genus,
+            genusdescription: res.data.genus_des,
             habit: res.data.habit === null ? "" : res.data.habit,
-            distribution: (res.data.spec_distrOut === null ? "" : "世界分布：" + res.data.spec_distrOut + "\n") + (res.data.spec_distrIn === null ? "" : "国内分布：" + res.data.spec_distrIn),
+            distribution: (res.data.spec_distrWorld === null ? "" : "世界分布：" + res.data.spec_distrWorld + "\n") + (res.data.spec_distrIn === null ? "" : "国内分布：" + res.data.spec_distrIn),
             classification_feature: res.data.spec_divFeature === null ? "" : res.data.spec_divFeature,
-            position: res.data.specimen_pos === null ? "" : "位置：" + res.data.specimen_pos,
-            collect: (res.data.specimen_collector === null ? "" : "采集人：" + res.data.specimen_collector) + (formatDate === "" ? "" : " 采集时间：" + formatDate) + (collectPosition === "" ? "" : " 采集地点：" + collectPosition),
-            specimen_description: specimenDes,
+            // position: res.data.specimen_pos === null ? "" : "位置：" + res.data.specimen_pos,
+            // collect: (res.data.specimen_collector === null ? "" : "采集人：" + res.data.specimen_collector) + (formatDate === "" ? "" : " 采集时间：" + formatDate) + (collectPosition === "" ? "" : " 采集地点：" + collectPosition),
+            // specimen_description: specimenDes,
           }
         });
       }
@@ -151,9 +157,9 @@ Page({
       wx.request({
         url: "https://www.sysubiomuseum.com/userFavor/removefavor",
         data: {
-          specimenId: this.id,
+          specId: this.id,
           openid: wx.getStorageSync('openid'),
-          specimenType: 'animal'
+          specType: 'animal'
         },
         method: "GET",
         dataType: "json",
@@ -175,9 +181,9 @@ Page({
       wx.request({
         url: "https://www.sysubiomuseum.com/userFavor/addfavor",
         data: {
-          specimenId: this.id,
+          specId: this.id,
           openid: wx.getStorageSync('openid'),
-          specimenType: 'animal',
+          specType: 'animal',
           chName: this.data.exhibit_information.name
         },
         method: "GET",

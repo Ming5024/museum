@@ -60,7 +60,15 @@ swiper {
   align-items: flex-start;
   justify-content: space-between;
   flex-direction: column;
-   font-size: 0.7rem; 
+  font-size: 0.8rem; 
+}
+
+#flex-view3 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+  font-size: 0.7rem; 
 }
 
 #flex-view1-item {
