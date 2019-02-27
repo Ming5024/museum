@@ -59,12 +59,13 @@ Page({
             // position: res.data.specimen_pos === null ? "" : res.data.specimen_pos,
             // collect: (res.data.specimen_collector === null ? "" : "采集人：" + res.data.specimen_collector) + (res.data.specimen_colDate === null ? "" : " 采集日期：" + res.data.specimen_colDate)  + (province + city + loc  === "" ? "" : "\n采集地点：" + province + city + loc),
             family: family,
-            family_formFeature: res.data.family_formFeature,
-            family_habit: res.data.family_habit,
+            family_formFeature: res.data.family_formFeature === null ? "" : res.data.family_formFeature,
+            family_habit: res.data.family_habit === null ? "" : res.data.family_habit,
             genus: genus,
             genus_formFeature: res.data.genus_formFeature,
-            genus_habit: res.data.genus_habit,
+            genus_habit: res.data.genus_habit === null ? "" : res.data.genus_habit,
             bar: '/res/bar.png',
+            audio: '/res/audio.png',
             // specimen_description: speciDes,
             morphology_description: res.data.spec_formDes === null ? "" : res.data.spec_formDes,
             body_length: res.data.spec_length === null ? "" : res.data.spec_length,
@@ -213,5 +214,67 @@ Page({
     this.setData({
       exhibitImageHeight: ratio * height,
     });
+  },
+
+  getAip: function (e) {
+    var self = this
+    console.log(e.currentTarget.dataset.filename, e.currentTarget.dataset.transfer_data, e.currentTarget.dataset.title)
+    wx.request({
+      url: 'https://www.sysubiomuseum.com/aip/getaip',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        type: 'insect',
+        id: self.id,
+        transfer_data: e.currentTarget.dataset.title + ',' + e.currentTarget.dataset.transfer_data,
+        title: e.currentTarget.dataset.filename
+      },
+      method: 'POST',
+      success: (res) => {
+        console.log(res)
+        if (this.data.audioContext) {
+          console.log(this.data.audioContext)
+          this.data.audioContext.destroy()
+          console.log(this.data.audioContext)
+        }
+
+        let audioContext = wx.createInnerAudioContext()
+        self.setData({
+          playing: true,
+          paused: false,
+          audioTitle: e.currentTarget.dataset.title,
+          audioContext: audioContext
+        })
+        self.data.audioContext.src = res.data.url
+        self.data.audioContext.autoplay = true
+        self.data.audioContext.onEnded((e) => {
+          self.setData({
+            playing: false,
+            paused: false
+          })
+        })
+        self.data.audioContext.play()
+      }
+    })
+  },
+  switchAudio() {
+    if (!this.data.paused) {
+      console.log(this.data.audioContext)
+      this.data.audioContext.pause()
+    } else {
+      this.data.audioContext.play()
+    }
+    this.setData({
+      paused: !this.data.paused
+    })
+
+  },
+  closeAudio() {
+    this.data.audioContext.destroy()
+    this.setData({
+      playing: false,
+      paused: false
+    })
   }
 })

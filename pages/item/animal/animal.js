@@ -60,6 +60,7 @@ Page({
           exhibit_information: {
             share: "/res/share.png",
             bar: "/res/bar.png",
+            audio: '/res/audio.png',
             name: res.data.spec_chName,
             nickname: res.data.spec_commonName === null ? "" : "(俗名：" + res.data.spec_commonName + ")",
             // gender: res.data.specimen_sex === "♂" ? "/res/male.png" : "/res/female.png",
@@ -219,5 +220,67 @@ Page({
     this.setData({
       exhibitImageHeight: ratio * height,
     });
+  },
+
+  getAip: function (e) {
+    var self = this
+    console.log(e.currentTarget.dataset.filename, e.currentTarget.dataset.transfer_data, e.currentTarget.dataset.title)
+    wx.request({
+      url: 'https://www.sysubiomuseum.com/aip/getaip',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        type: 'animal',
+        id: self.id,
+        transfer_data: e.currentTarget.dataset.title + ',' + e.currentTarget.dataset.transfer_data,
+        title: e.currentTarget.dataset.filename
+      },
+      method: 'POST',
+      success: (res) => {
+        console.log(res)
+        if(this.data.audioContext) {
+          console.log(this.data.audioContext)
+          this.data.audioContext.destroy()
+          console.log(this.data.audioContext)
+        }
+        
+        let audioContext = wx.createInnerAudioContext()
+        self.setData({
+          playing: true,
+          paused: false,
+          audioTitle: e.currentTarget.dataset.title,
+          audioContext: audioContext
+        })
+        self.data.audioContext.src = res.data.url
+        self.data.audioContext.autoplay = true
+        self.data.audioContext.onStop((e) => {
+          self.setData({
+            playing: false,
+            paused: false
+          })
+        })
+        self.data.audioContext.play()
+      }
+    })
+  },
+  switchAudio () {
+    if (!this.data.paused) {
+      console.log(this.data.audioContext)
+      this.data.audioContext.pause()
+    } else {
+      this.data.audioContext.play()
+    }
+    this.setData({
+      paused: !this.data.paused
+    })
+    
+  },
+  closeAudio () {
+    this.data.audioContext.destroy()
+    this.setData({
+      playing: false,
+      paused: false
+    })
   }
 })

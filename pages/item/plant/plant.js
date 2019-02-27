@@ -65,6 +65,7 @@ Page({
             // position: res.data.specimen_pos === null ? "" : "存放位置：" + res.data.specimen_pos,
             // collect: (res.data.specimen_collector === null ? "" : "采集人：" + res.data.specimen_collector) + (date === "" ? "" : " 采集日期：" + date) + (province + city + loc === "" ? "" : " 采集地点：" + province + city + loc),
             bar: "/res/bar.png",
+            audio: '/res/audio.png',
             // specimen_description: specDes,
             morphology_description: res.data.spec_formDes === null ? "" : res.data.spec_formDes,
             surroundings: res.data.spec_envir === null ? "" : res.data.spec_envir,
@@ -212,5 +213,66 @@ Page({
     this.setData({
       exhibitImageHeight: ratio * height,
     });
+  },
+
+  getAip: function (e) {
+    var self = this
+    console.log(e.currentTarget.dataset.filename, e.currentTarget.dataset.transfer_data, e.currentTarget.dataset.title)
+    wx.request({
+      url: 'https://www.sysubiomuseum.com/aip/getaip',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        type: 'plant',
+        id: self.id,
+        transfer_data: e.currentTarget.dataset.title + ',' + e.currentTarget.dataset.transfer_data,
+        title: e.currentTarget.dataset.filename
+      },
+      method: 'POST',
+      success: (res) => {
+        if (this.data.audioContext) {
+          console.log(this.data.audioContext)
+          this.data.audioContext.destroy()
+          console.log(this.data.audioContext)
+        }
+
+        let audioContext = wx.createInnerAudioContext()
+        self.setData({
+          playing: true,
+          paused: false,
+          audioTitle: e.currentTarget.dataset.title,
+          audioContext: audioContext
+        })
+        self.data.audioContext.src = res.data.url
+        self.data.audioContext.autoplay = true
+        self.data.audioContext.onEnded((e) => {
+          self.setData({
+            playing: false,
+            paused: false
+          })
+        })
+        self.data.audioContext.play()
+      }
+    })
+  },
+  switchAudio() {
+    if (!this.data.paused) {
+      console.log(this.data.audioContext)
+      this.data.audioContext.pause()
+    } else {
+      this.data.audioContext.play()
+    }
+    this.setData({
+      paused: !this.data.paused
+    })
+
+  },
+  closeAudio() {
+    this.data.audioContext.destroy()
+    this.setData({
+      playing: false,
+      paused: false
+    })
   }
 })
