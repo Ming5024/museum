@@ -1,3 +1,11 @@
+<view>
+  <view id="audio-view" wx-if="{{playing}}">
+    <span style="display:flex;flex:0.95">正在播放：{{audioTitle}}</span>
+    <image src='{{paused===false ? "/res/pause.png" : "/res/play.png"}}' mode='aspectFit' bindtap='switchAudio'></image>
+    <image src='/res/close.png' mode='aspectFit' bindtap='closeAudio'></image>
+  </view>
+</view>
+
 <view id='image-container'>
   <swiper autoplay='true' style='height:{{exhibitImageHeight}}px'>
     <block wx:for='{{pic_src}}'>
@@ -20,6 +28,7 @@
       </view>
       <image src='{{hasFavor===true ? "/res/favorites.png" : "/res/unfavorites.png"}}' mode='aspectFit' bindtap='setFavor'></image>
       <image src='{{exhibit_information.share}}' mode='aspectFit'></image>
+      <image src='{{exhibit_information.audio}}' mode='aspectFit' bindtap='getAip' data-filename="summary" data-transfer_data="{{exhibit_information.nickname + ',' + exhibit_information.category}}" data-title="{{exhibit_information.name}}"></image>
     </view>
     <view id='flex-view2'>
       <text id='nickname'>{{exhibit_information.nickname}}</text>
@@ -40,49 +49,55 @@
         <text>{{exhibit_information.specimen_description}}</text>
       </view>
     </view> -->
-    <view id='aricle-item1' style='{{exhibit_information.genus==""? "display:none":"display:block"}}'>
+    
+    <view id='aricle-item1' style='{{exhibit_information.morphology_description==""? "display:none":"display:block"}}'>
       <view id='item-title-container'>
         <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
-        <text id='item-title'>{{exhibit_information.genus}}</text>
-      </view>
-      <view id='text-container'>
-        <text>{{exhibit_information.genusdescription}}</text>
-      </view>
-    </view>
-    <view id='aricle-item2' style='{{exhibit_information.morphology_description==""? "display:none":"display:block"}}'>
-      <view id='item-title-container'>
-        <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
-        <text id='item-title'>形态描述</text>
+        <text id='item-title' style="display:flex;flex:0.93;">形态描述</text>
+        <image src='{{exhibit_information.audio}}' mode='aspectFit' bindtap='getAip' data-filename="morphologyDescription" data-transfer_data="{{exhibit_information.morphology_description}}" data-title="形态描述"></image>
       </view>
       <view id='text-container'>
         <text>{{exhibit_information.morphology_description}}</text>
       </view>
     </view>
-    <view id='aricle-item3' style='{{exhibit_information.surroundings==""? "display:none":"display:block"}}'>
+    <view id='aricle-item2' style='{{exhibit_information.surroundings==""? "display:none":"display:block"}}'>
       <view id='item-title-container'>
         <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
-        <text id='item-title'>生活环境</text>
+        <text id='item-title' style="display:flex;flex:0.93;">生活环境</text>
+        <image src='{{exhibit_information.audio}}' mode='aspectFit' bindtap='getAip' data-filename="surroundings" data-transfer_data="{{exhibit_information.surroundings}}" data-title="生活环境"></image>
       </view>
       <view id='text-container'>
         <text>{{exhibit_information.surroundings}}</text>
       </view>
     </view>
-    <view id='aricle-item4' style='{{exhibit_information.distribution==""? "display:none":"display:block"}}'>
+    <view id='aricle-item3' style='{{exhibit_information.distribution==""? "display:none":"display:block"}}'>
       <view id='item-title-container'>
         <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
-        <text id='item-title'>分布情况</text>
+        <text id='item-title' style="display:flex;flex:0.93;">分布情况</text>
+        <image src='{{exhibit_information.audio}}' mode='aspectFit' bindtap='getAip' data-filename="distribution" data-transfer_data="{{exhibit_information.distribution}}" data-title="分布情况"></image>
       </view>
       <view id='text-container'>
         <text>{{exhibit_information.distribution}}</text>
       </view>
     </view>
-    <view id='aricle-item5' style='{{exhibit_information.application_value==""? "display:none":"display:block"}}'>
+    <view id='aricle-item4' style='{{exhibit_information.application_value==""? "display:none":"display:block"}}'>
       <view id='item-title-container'>
         <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
-        <text id='item-title'>应用价值</text>
+        <text id='item-title' style="display:flex;flex:0.93;">应用价值</text>
+        <image src='{{exhibit_information.audio}}' mode='aspectFit' bindtap='getAip' data-filename="applicationValue" data-transfer_data="{{exhibit_information.application_value}}" data-title="应用价值"></image>
       </view>
       <view id='text-container'>
         <text>{{exhibit_information.application_value}}</text>
+      </view>
+    </view>
+    <view id='aricle-item5' style='{{exhibit_information.genus==""? "display:none":"display:block"}}'>
+      <view id='item-title-container'>
+        <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
+        <text id='item-title' style="display:flex;flex:0.93;">{{exhibit_information.genus}}</text>
+        <image src='{{exhibit_information.audio}}' mode='aspectFit' bindtap='getAip' data-filename="genus" data-transfer_data="{{exhibit_information.genusdescription}}" data-title="{{exhibit_information.genus}}"></image>
+      </view>
+      <view id='text-container'>
+        <text>{{exhibit_information.genusdescription}}</text>
       </view>
     </view>
   </view>

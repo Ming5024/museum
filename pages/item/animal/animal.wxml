@@ -55,7 +55,7 @@
       <view id='item-title-container'>
         <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
         <text id='item-title' style="display:flex;flex:0.93;">分类特征</text>
-        <image src='{{exhibit_information.audio}}' mode='aspectFit' bindtap='getAip' data-filename="classification" data-transfer_data="{{exhibit_information.classification_feature}}" data-title="分类特征"></image>
+        <image src='{{exhibit_information.audio}}' mode='aspectFit' bindtap='getAip' data-filename="classificationFeature" data-transfer_data="{{exhibit_information.classification_feature}}" data-title="分类特征"></image>
       </view>
       <view id='text-container'>
         <text>{{exhibit_information.classification_feature}}</text>

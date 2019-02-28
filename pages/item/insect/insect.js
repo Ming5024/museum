@@ -7,6 +7,7 @@ Page({
     id: '',
     currentTab: 0,
     exhibitImageHeight: 0,
+    audioContext: undefined
   },
 
   /**
@@ -17,6 +18,13 @@ Page({
     this.id = options.id;
     // var id = options.id;
     var that = this;
+    this.audioContext = wx.createInnerAudioContext();
+    this.audioContext.onEnded((e) => {
+      that.setData({
+        playing: false,
+        paused: false
+      })
+    })
 
     wx.getSystemInfo({
       success: function (res) {
@@ -53,7 +61,6 @@ Page({
           exhibit_information: {
             name: res.data.spec_chName === null ? "" : res.data.spec_chName,
             nickname: res.data.spec_commonName === null ? "" : "（俗名：" + res.data.spec_commonName + "）",
-            gender: res.data.specimen_sex === null ? "" : (res.data.specimen_sex === "♂" ? "/res/male.png" : "/res/female.png"),
             category: family + genus,
             share: '/res/share.png',
             // position: res.data.specimen_pos === null ? "" : res.data.specimen_pos,
@@ -95,14 +102,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    this.closeAudio()
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    this.closeAudio()
   },
 
   /**
@@ -232,38 +239,32 @@ Page({
       },
       method: 'POST',
       success: (res) => {
-        console.log(res)
-        if (this.data.audioContext) {
-          console.log(this.data.audioContext)
-          this.data.audioContext.destroy()
-          console.log(this.data.audioContext)
-        }
-
-        let audioContext = wx.createInnerAudioContext()
+        console.log('success')
         self.setData({
           playing: true,
           paused: false,
           audioTitle: e.currentTarget.dataset.title,
-          audioContext: audioContext
         })
-        self.data.audioContext.src = res.data.url
-        self.data.audioContext.autoplay = true
-        self.data.audioContext.onEnded((e) => {
-          self.setData({
-            playing: false,
-            paused: false
-          })
+        wx.downloadFile({
+          url: res.data.url,
+          success(response) {
+            // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+            if (res.statusCode === 200) {
+              self.audioContext.src = response.tempFilePath
+              self.audioContext.autoplay = true
+              console.log(self.audioContext)
+              self.audioContext.play()
+            }
+          }
         })
-        self.data.audioContext.play()
       }
     })
   },
   switchAudio() {
     if (!this.data.paused) {
-      console.log(this.data.audioContext)
-      this.data.audioContext.pause()
+      this.audioContext.pause()
     } else {
-      this.data.audioContext.play()
+      this.audioContext.play()
     }
     this.setData({
       paused: !this.data.paused
@@ -271,7 +272,7 @@ Page({
 
   },
   closeAudio() {
-    this.data.audioContext.destroy()
+    this.audioContext.stop()
     this.setData({
       playing: false,
       paused: false
