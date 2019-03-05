@@ -12,10 +12,19 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     guide_pic: {},
-    top:0
+    top:0,
+    audioContext: undefined
   },
   //事件处理函数
   onLoad: function () {
+    var that = this;
+    this.audioContext = wx.createInnerAudioContext();
+    this.audioContext.onEnded((e) => {
+      that.setData({
+        playing: false,
+        paused: false
+      })
+    })
     //请求页面数据
     wx.request({
       url: 'https://www.sysubiomuseum.com/search/mainintro',
@@ -36,6 +45,63 @@ Page({
     wx.pageScrollTo({
       scrollTop: this.data.windowHeight,
       duration: 1000,
+    })
+  },
+
+  getAip: function (e) {
+    var self = this
+    console.log(e.currentTarget.dataset.filename, e.currentTarget.dataset.transfer_data, e.currentTarget.dataset.title)
+    wx.request({
+      url: 'https://www.sysubiomuseum.com/aip/getaip',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        type: 'museum',
+        id: self.id,
+        transfer_data: e.currentTarget.dataset.title + ',' + e.currentTarget.dataset.transfer_data.replace(/&nbsp/g, ' '),
+        title: e.currentTarget.dataset.filename
+      },
+      method: 'POST',
+      success: (res) => {
+        console.log(res)
+        self.closeAudio()
+        self.setData({
+          playing: true,
+          paused: false,
+          audioTitle: e.currentTarget.dataset.title,
+        })
+        wx.downloadFile({
+          url: res.data.url,
+          success(response) {
+            // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+            if (res.statusCode === 200) {
+              self.audioContext.src = response.tempFilePath
+              self.audioContext.autoplay = true
+              console.log(self.audioContext)
+              self.audioContext.play()
+            }
+          }
+        })
+      }
+    })
+  },
+  switchAudio() {
+    if (!this.data.paused) {
+      this.audioContext.pause()
+    } else {
+      this.audioContext.play()
+    }
+    this.setData({
+      paused: !this.data.paused
+    })
+
+  },
+  closeAudio() {
+    this.audioContext.stop()
+    this.setData({
+      playing: false,
+      paused: false
     })
   }
 })

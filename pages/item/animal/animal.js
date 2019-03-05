@@ -7,7 +7,8 @@ Page({
     id: 0,
     currentTab: 0,
     exhibitImageHeight: 0,
-    audioContext: undefined
+    audioContext: undefined,
+    showModal: false
   },
 
   /** 生命周期函数--监听页面加载完成*/
@@ -292,6 +293,19 @@ Page({
     this.setData({
       playing: false,
       paused: false
+    })
+  },
+  share () {
+    this.setData({
+      showModal: true
+    })
+  },
+  preventTouchMove (e) {
+
+  },
+  hideMask () {
+    this.setData({
+      showModal: false
     })
   }
 })
