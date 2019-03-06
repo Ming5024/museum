@@ -120,5 +120,5 @@
 <view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}" bindtap='hideMask'></view>
  
 <view class="modalDlg" wx:if="{{showModal}}">
-  <button>分享当前页面</button>
+  <button open-type="share">分享当前页面</button>
 </view>

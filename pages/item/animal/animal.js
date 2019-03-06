@@ -14,6 +14,9 @@ Page({
   /** 生命周期函数--监听页面加载完成*/
   onLoad: function (options) {
     //跳转测试
+    wx.showShareMenu({
+      withShareTicket: true
+    })
     this.id = options.id;
     // var id = options.id;
     var that = this;
@@ -137,8 +140,18 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (e) {
+    this.hideMask()
+    return {
+      title: this.data.exhibit_information.name,
+      path: `/pages/item/animal/animal?id=${this.id}`,
+      success: (res) => {
+        console.log("转发成功", res);
+      },
+      fail: (res) => {
+        console.log("转发失败", res);
+      }
+    }
   },
 
   clickTab: function (e) {

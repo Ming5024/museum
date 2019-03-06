@@ -7,7 +7,8 @@ Page({
     id: '',
     currentTab: 0,
     exhibitImageHeight: 0,
-    audioContext: undefined
+    audioContext: undefined,
+    showModal: false
   },
 
   /**
@@ -15,6 +16,9 @@ Page({
    */
   onLoad: function (options) {
     //跳转测试
+    wx.showShareMenu({
+      withShareTicket: true
+    })
     this.id = options.id;
     // var id = options.id;
     var that = this;
@@ -129,8 +133,18 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (e) {
+    this.hideMask()
+    return {
+      title: this.data.exhibit_information.name,
+      path: `/pages/item/insect/insect?id=${this.id}`,
+      success: (res) => {
+        console.log("转发成功", res);
+      },
+      fail: (res) => {
+        console.log("转发失败", res);
+      }
+    }
   },
 
   clickTab: function (e) {
@@ -276,6 +290,19 @@ Page({
     this.setData({
       playing: false,
       paused: false
+    })
+  },
+  share() {
+    this.setData({
+      showModal: true
+    })
+  },
+  preventTouchMove(e) {
+
+  },
+  hideMask() {
+    this.setData({
+      showModal: false
     })
   }
 })

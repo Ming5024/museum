@@ -27,7 +27,7 @@
         <!-- <text id='nickname' style='font-size:0.9rem'>{{exhibit_information.nickname}}</text> -->
       </view>
       <image src='{{hasFavor===true ? "/res/favorites.png" : "/res/unfavorites.png"}}' mode='aspectFit' bindtap='setFavor'></image>
-      <image src='{{exhibit_information.share}}' mode='aspectFit'></image>
+      <image src='{{exhibit_information.share}}' bindtap='share' mode='aspectFit'></image>
       <image src='{{exhibit_information.audio}}' mode='aspectFit' bindtap='getAip' data-filename="summary" data-transfer_data="{{exhibit_information.nickname + ',' + exhibit_information.category}}" data-title="{{exhibit_information.name}}"></image>
     </view>
     <view id='flex-view2'>
@@ -101,4 +101,10 @@
       </view>
     </view>
   </view>
+</view>
+
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}" bindtap='hideMask'></view>
+ 
+<view class="modalDlg" wx:if="{{showModal}}">
+  <button open-type="share">分享当前页面</button>
 </view>
