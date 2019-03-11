@@ -8,7 +8,8 @@ Page({
     currentTab: 0,
     exhibitImageHeight: 0,
     audioContext: undefined,
-    showModal: false
+    showModal: false,
+    showPoster: false
   },
 
   /** 生命周期函数--监听页面加载完成*/
@@ -313,12 +314,47 @@ Page({
       showModal: true
     })
   },
+  capture_pic () {
+    var self = this
+    this.setData({
+      showModal: false
+    })
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original'],
+      sourceType: ['camera'],
+      success(res) {
+        // tempFilePath可以作为img标签的src属性显示图片
+        let tempFilePaths = res.tempFilePaths
+        console.log(tempFilePaths)
+        self.setData({
+          showPoster: true
+        })
+        // wx.uploadFile({
+        //   url: 'https://www.sysubiomuseum.com/upload',
+        //   filePath: tempFilePaths[0],
+        //   name: 'file',
+        //   success (res) {
+        //     console.log(res)
+        //   },
+        //   fail (res) {
+        //     console.log(res)
+        //   }
+        // })
+      }
+    })
+  },
   preventTouchMove (e) {
 
   },
   hideMask () {
     this.setData({
-      showModal: false
+      showModal: false,
+      showPoster: false
     })
+  },
+  generate_poster () {
+    console.log('图片海报已生成')
+    this.hideMask()
   }
 })

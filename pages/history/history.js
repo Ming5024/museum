@@ -46,7 +46,7 @@ Page({
         for(let i of history) {
           i.visited = that.convertDate(i.visited);
           if(i.pics.length == 0) {
-            i.pics = "/res/404.png"
+            i.pics = "/res/404.jpg"
           }
           else {
             i.pics = `https://www.sysubiomuseum.com/pic/${i.pics[0]}`

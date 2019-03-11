@@ -16,6 +16,10 @@
     <image class = 'coverbutton' src='/res/pushdown.png' style='position:absolute;bottom:20rpx;left:350rpx' bindtap='pushdown'/>
   </view>
 
+  <view class = 'cover' style='position:relative'>
+    <image class = 'coverbackground' src='/res/notice.jpg' style='position:absolute'></image>
+  </view>
+
   <scroll-view class = 'scroll' scroll-x="true">
     <swiper autoplay="true" interval="3000" duration="500" indicator-dots='true'>
       <block wx:for="{{guide_pic}}"  wx:for-index="index">
@@ -43,5 +47,17 @@
     <text class='text' decode="{{true}}">{{intro}}</text>
   </view> -->
 
+</view>
+
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}" bindtap='hideMask'></view>
+
+<view class="modalDlg" wx:if="{{showModal}}">
+  <view style="margin:30rpx 50rpx">
+    欢迎使用中山大学生物博物馆导览小程序，是否登录体验更多功能？
+  </view>
+  <view style="width:100%">
+    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo">确定</button>
+    <button bindtap="laterLogin">稍后再登录</button>
+  </view>
 </view>
 

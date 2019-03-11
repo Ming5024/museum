@@ -164,3 +164,25 @@ text#name {
   width: 100%;
   font-size: 38rpx;
 }
+
+.poster {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  padding: 50rpx 60rpx;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+.poster-view {
+  height:90%;
+  margin-bottom:35rpx;
+  background: white;
+}
+
+.poster button {
+  width: 300rpx;
+  font-size: 35rpx;
+}

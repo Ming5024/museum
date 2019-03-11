@@ -121,4 +121,10 @@
  
 <view class="modalDlg" wx:if="{{showModal}}">
   <button open-type="share">分享当前页面</button>
+  <!-- <button bindtap="capture_pic">拍照上传</button> -->
 </view>
+
+<!-- <view class="poster" wx:if="{{showPoster}}">
+  <view class="poster-view"></view>
+  <button bindtap="generate_poster">保存图片海报</button>
+</view> -->

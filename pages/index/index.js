@@ -6,14 +6,15 @@ Page({
   data: {
     windowWidth: wx.getSystemInfoSync().windowWidth,
     windowHeight: wx.getSystemInfoSync().windowHeight,
-    covercontent: '每周六至周日9：00-17：00\n每周一至周五闭馆（国家法定节假日除外）',
+    covercontent: '双休日及法定公休假日：\n9：00——17：00，接待个人和团体\n\n工作日：按沟通约定的时间，只接待团体，不接待个人',
     intro: '',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     guide_pic: {},
     top:0,
-    audioContext: undefined
+    audioContext: undefined,
+    showModal: false
   },
   //事件处理函数
   onLoad: function () {
@@ -25,6 +26,30 @@ Page({
         paused: false
       })
     })
+    console.log(app.globalData.userInfo)
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true,
+        showModal: false
+      })
+    } else if (this.data.canIUse) {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true,
+          showModal: false
+        })
+      }
+      app.noAuthCallback = res => {
+        this.setData({
+          showModal: true
+        })
+      }
+    }
+
     //请求页面数据
     wx.request({
       url: 'https://www.sysubiomuseum.com/search/mainintro',
@@ -103,5 +128,28 @@ Page({
       playing: false,
       paused: false
     })
+  },
+  preventTouchMove(e) {
+
+  },
+  laterLogin() {
+    this.setData({
+      showModal: false,
+    })
+    wx.showToast({
+      title: '可以在 \"个人\" 进行登录哦~',
+      icon: 'none'
+    })
+  },
+  getUserInfo: function (e) {
+    console.log(e)
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true,
+      showModal: false
+    })
+    wx.setStorageSync("encrypteddata", e.detail.encryptedData)
+    wx.setStorageSync("iv", e.detail.iv)
   }
 })
