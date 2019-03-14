@@ -66,6 +66,9 @@ Page({
     })
   },
 
+  onReady: function () {
+  },
+
   pushdown:function(e){
     wx.pageScrollTo({
       scrollTop: this.data.windowHeight,

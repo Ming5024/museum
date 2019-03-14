@@ -142,7 +142,7 @@ text#name {
 .modalDlg{
   width: 580rpx;
   position: fixed;
-  top: 50%;
+  top: 40%;
   left: 0;
   z-index: 9999;
   margin: 0 85rpx;
@@ -156,4 +156,69 @@ text#name {
 .modalDlg button {
   width: 100%;
   font-size: 38rpx;
+}
+
+.poster {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  padding: 50rpx 60rpx;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+.poster-canvas {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  padding: 50rpx 60rpx;
+  box-sizing: border-box;
+  top: 9999px;
+  left: 0;
+  z-index: 9999;
+}
+
+.poster-view {
+  height:90%;
+  width:100%;
+  margin-bottom:35rpx;
+  background: white;
+  flex-direction: column;
+  font-family: FZSJ-XUYYH-DC;
+}
+
+.poster-title {
+  display:flex;
+  flex-direction:row;
+  align-content:center;
+  align-items:center;
+  margin-top:20rpx;
+  margin-left:20rpx;
+}
+
+.poster-content-image {
+  display: flex;
+  justify-content: center;
+  padding-top:50rpx;
+}
+
+.poster-content-input {
+  display: flex;
+  padding-top:50rpx;
+  padding-right:30rpx;
+  flex-direction:column;
+  align-items:flex-end;
+}
+
+.poster-view-canvas {
+  height:90%;
+  width: 100%;
+}
+
+.poster button {
+  width:45%;
+  font-size:35rpx;
+  display:inline-block;
 }

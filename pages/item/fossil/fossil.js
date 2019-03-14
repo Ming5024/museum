@@ -8,7 +8,8 @@ Page({
     currentTab: 0,
     exhibitImageHeight: 0,
     audioContext: undefined,
-    showModal: false
+    showModal: false,
+    showPoster: false
   },
 
   /**
@@ -274,12 +275,177 @@ Page({
       showModal: true
     })
   },
+  capture_pic(e) {
+    var self = this
+    var date = new Date()
+    this.setData({
+      showModal: false,
+      posterContent: '',
+      posterDate: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+    })
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original'],
+      sourceType: [`${e.currentTarget.dataset.type}`],
+      success(res) {
+        // tempFilePath可以作为img标签的src属性显示图片
+        let tempFilePaths = res.tempFilePaths
+        console.log(tempFilePaths)
+        wx.saveFile({
+          tempFilePath: tempFilePaths[0],
+          success(res) {
+            const savedFilePath = res.savedFilePath
+            self.setData({
+              showPoster: true,
+              posterImage: savedFilePath
+            })
+          }
+        })
+      }
+    })
+  },
   preventTouchMove(e) {
 
   },
   hideMask() {
     this.setData({
-      showModal: false
+      showModal: false,
+      showPoster: false
+    })
+  },
+  generate_poster() {
+    console.log('图片海报已生成')
+    var self = this
+    const query = wx.createSelectorQuery()
+    query.select('.poster-view-canvas').boundingClientRect()
+    query.select('.poster-content-image').boundingClientRect()
+    query.select('#poster-image').boundingClientRect()
+    query.exec(function (res) {
+      console.log(res)
+      console.log(self.translateRpxToPx((res[1].width - res[2].width) / 2), self.translateRpxToPx(190), self.translateRpxToPx(res[2].width), self.translateRpxToPx(res[2].height))
+      self.drawCanvas((res[1].width - res[2].width) / 2, self.translateRpxToPx(190), res[2].width, res[2].height, res[0].width, res[0].height)
+    })
+    // this.hideMask()
+  },
+  bindKeyInput(e) {
+    this.setData({
+      posterContent: e.detail.value
+    })
+  },
+  translateRpxToPx(rpx) {
+    var systemInfo = wx.getSystemInfoSync();
+    return rpx / 750 * systemInfo.windowWidth;
+  },
+  drawCanvas(imagesx, imagesy, imagewidth, imageheight, canvasWidth, canvasHeight) {
+    var self = this
+    var postContext = wx.createCanvasContext("poster", this)
+    postContext.setFillStyle('white')
+    postContext.fillRect(0, 0, canvasWidth, canvasHeight)
+    postContext.setFillStyle('black')
+    postContext.font = "16px 'FZSJ-XUYYH-DC'"
+    postContext.drawImage('/res/logo.png', this.translateRpxToPx(20), this.translateRpxToPx(20), this.translateRpxToPx(120), this.translateRpxToPx(120))
+    postContext.fillText(`SYSBM - ${this.data.exhibit_information.name}`, this.translateRpxToPx(140), this.translateRpxToPx(80) + 8)
+    postContext.drawImage(this.data.posterImage, imagesx, imagesy, imagewidth, imageheight)
+    postContext.textAlign = "right"  //文字居右
+    console.log(canvasWidth)
+    postContext.fillText(this.data.posterContent, canvasWidth - this.translateRpxToPx(30), this.translateRpxToPx(640) + 16)
+    postContext.fillText(this.data.posterDate, canvasWidth - this.translateRpxToPx(30), this.translateRpxToPx(640) + 32)
+    postContext.drawImage('/res/code.png', 0, canvasHeight * 0.8, canvasWidth, canvasHeight * 0.2)
+    postContext.draw()
+
+    setTimeout((e) => {
+      self.saveCanvas()
+    }, 500)
+  },
+  saveCanvas() {
+    var self = this
+    wx.canvasToTempFilePath({
+      x: 0,
+      y: 0,
+      canvasId: 'poster',
+      success: function (res) {
+        let shareImg = res.tempFilePath
+        console.log(self.data.posterImage)
+        self.hideMask()
+        wx.getSetting({
+          success(res) {
+            // 如果没有则获取授权
+            if (!res.authSetting['scope.writePhotosAlbum']) {
+              wx.authorize({
+                scope: 'scope.writePhotosAlbum',
+                success() {
+                  console.log(shareImg)
+                  wx.saveImageToPhotosAlbum({
+                    filePath: shareImg,
+                    success() {
+                      wx.showToast({
+                        title: '保存成功'
+                      })
+                    },
+                    fail() {
+                      wx.showToast({
+                        title: '保存失败',
+                        icon: 'none'
+                      })
+                    }
+                  })
+                },
+                fail() {
+                }
+              })
+            } else {
+              // 有则直接保存
+              wx.saveImageToPhotosAlbum({
+                filePath: shareImg,
+                success() {
+                  wx.showToast({
+                    title: '保存成功'
+                  })
+                },
+                fail() {
+                  wx.showToast({
+                    title: '保存失败',
+                    icon: 'none'
+                  })
+                }
+              })
+            }
+          }
+        })
+        wx.uploadFile({
+          url: 'https://www.sysubiomuseum.com/upload',
+          filePath: self.data.posterImage,
+          name: 'file',
+          success(res) {
+            console.log(res)
+          },
+          fail(res) {
+            console.log(res)
+          }
+        })
+        wx.request({
+          url: "https://www.sysubiomuseum.com/share/addshare",
+          data: {
+            specId: self.id,
+            chName: self.data.exhibit_information.name,
+            openid: wx.getStorageSync('openid'),
+            specType: 'fossil',
+            filePath: self.data.posterImage,
+            content: self.data.posterContent,
+            shareDate: self.data.posterDate
+          },
+          method: "GET",
+          dataType: "json",
+          success: function (res) {
+            console.log(res)
+          },
+          fail: function (res) {
+            console.log(res)
+          }
+        })
+      },
+      fail: function (res) {
+      }
     })
   }
 })
