@@ -74,7 +74,7 @@ Page({
             family_formFeature: res.data.family_formFeature === null ? "" : res.data.family_formFeature,
             family_habit: res.data.family_habit === null ? "" : res.data.family_habit,
             genus: genus,
-            genus_formFeature: res.data.genus_formFeature,
+            genus_formFeature: res.data.genus_formFeature === null ? "" : res.data.genus_formFeature,
             genus_habit: res.data.genus_habit === null ? "" : res.data.genus_habit,
             bar: '/res/bar.png',
             audio: '/res/audio.png',

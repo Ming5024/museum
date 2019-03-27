@@ -29,7 +29,7 @@
       </view>
       <image src='{{hasFavor===true ? "/res/favorites.png" : "/res/unfavorites.png"}}' mode='aspectFit' bindtap='setFavor'></image>
       <image src='{{exhibit_information.share}}' bindtap='share' mode='aspectFit'></image>
-      <image src='{{exhibit_information.audio}}' mode='aspectFit' bindtap='getAip' data-filename="summary" data-transfer_data="{{exhibit_information.nickname + ',' + exhibit_information.category}}" data-title="{{exhibit_information.name}}"></image>
+      <image src='{{exhibit_information.audio}}' mode='aspectFit' bindtap='getAip' data-filename="summary" data-transfer_data="{{exhibit_information.nickname + ',' + exhibit_information.category}}" data-title="{{exhibit_information.name}}" />
     </view>
     <view id='flex-view2'>
       <text id='nickname'>{{exhibit_information.nickname}}</text>
