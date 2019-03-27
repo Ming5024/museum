@@ -10,7 +10,7 @@
     <block wx:for="{{pics}}"  wx:for-index="index">
         <swiper-item >
            <view class = 'scrollitems' >
-            <image src="{{pics[index]}}" mode="scaleToFill" style="height:{{winHeight-31}}px;width:{{winWidth}}px"   /> 
+            <image src="{{pics[index]}}" mode="aspectFit" style="height:{{winHeight-31}}px;width:{{winWidth}}px"   /> 
         
           </view> 
           

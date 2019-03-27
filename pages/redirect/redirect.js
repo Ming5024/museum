@@ -12,85 +12,32 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      items: [
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000017"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000017"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000017"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000017"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000002"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000002"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000002"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000002"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000002"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000002"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000002"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000002"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000002"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000002"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000002"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000002"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000002"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000002"
-        },
-        {
-          "img": "https://www.sysubiomuseum.com/pic/animalpic/small/SYSZ0000017.jpg/",
-          "id": "SYSZ0000002"
-        },
-      ]
+    //跳转测试
+    this.id = options.id;
+    // var id = options.id;
+    var that = this;
+
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          screenWidth: res.windowWidth,
+        })
+      },
+    })
+
+    wx.request({
+      url: "https://www.sysubiomuseum.com/search/cabinet",
+      data: {
+        cabinetNum: this.id,
+      },
+      method: "GET",
+      dataType: "json",
+      success: function (res) {
+        console.log(res)
+        that.setData({
+          items: res.data.specs
+        })
+      }
     })
   },
 

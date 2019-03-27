@@ -61,6 +61,7 @@ Page({
   setUserInfo: function() {
     wx.request({
       url: 'https://www.sysubiomuseum.com/userAuth/userinfo',
+      // url: 'http://www.sysubiomuseum.com:8081/userAuth/userinfo',
       header: {
         'content-type': "application/x-www-form-urlencoded"
       },
@@ -138,12 +139,27 @@ Page({
     }
   },
   modal_questionaire: function (e) {
-    wx.showModal({
-      title: '提示',
-      content: '该功能正在路上，敬请期待',
-      duration: 1000,
-      showCancel: false,
-    })
+    // wx.showModal({
+    //   title: '提示',
+    //   content: '该功能正在路上，敬请期待',
+    //   duration: 1000,
+    //   showCancel: false,
+    // })
+
+    if (wx.getStorageSync('encrypteddata') === '') {
+      wx.showModal({
+        title: '提示',
+        content: '请登录后再使用该功能！',
+        duration: 1000,
+        showCancel: false,
+      })
+    }
+    else {
+      wx.navigateToMiniProgram({
+        appId: 'wxd947200f82267e58',
+        path: 'pages/wjxqList/wjxqList?activityId=32812128'
+      })
+    }
   },
   editinfo:function(e){
     wx.navigateTo({

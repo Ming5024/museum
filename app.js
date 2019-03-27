@@ -29,10 +29,12 @@ App({
     // 获取用户信息
     wx.getSetting({
       success: res => {
+        console.log(res)
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
             success: res => {
+              console.log(res)
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
 
@@ -44,8 +46,14 @@ App({
 
               wx.setStorageSync("encrypteddata", res.encryptedData)
               wx.setStorageSync("iv", res.iv)
+            },
+            fail: res => {
+              console.log(res)
             }
           })
+        } else {
+          // 用户没有授权，用回调进行下一步操作
+          this.noAuthCallback(res)
         }
       }
     })

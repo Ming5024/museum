@@ -7,6 +7,9 @@ Page({
     id: 0,
     currentTab: 0,
     exhibitImageHeight: 0,
+    audioContext: undefined,
+    showModal: false,
+    showPoster:false
   },
 
   /**
@@ -14,9 +17,19 @@ Page({
    */
   onLoad: function (options) {
     //跳转测试
+    wx.showShareMenu({
+      withShareTicket: true
+    })
     this.id = options.id;
     // var id = options.id;
     var that = this;
+    this.audioContext = wx.createInnerAudioContext();
+    this.audioContext.onEnded((e) => {
+      that.setData({
+        playing: false,
+        paused: false
+      })
+    })
 
     wx.getSystemInfo({
       success: function (res) {
@@ -29,41 +42,44 @@ Page({
       url: "https://www.sysubiomuseum.com/search/plant",
       method: "GET",
       data: {
-        specimenId: this.id,
+        specId: this.id,
         openid: wx.getStorageSync('encrypteddata') === '' ? 'undefined' : wx.getStorageSync('openid')
       },
       dataType: "json",
       success: function(res) {
         console.log(res)
-        var date = res.data.specimen_colDate;
-        if (date != null) {
-          date.match(/(\d{4})(\d{0,2})(\d{0,2})/);
-          date = RegExp.$1 + (RegExp.$2 === "" ? "" : "-" + RegExp.$2) + (RegExp.$3 === "" ? "" : "-" + RegExp.$3);
-        } else {
-          date = "";
-        }
+        // var date = res.data.specimen_colDate;
+        // if (date != null) {
+        //   date.match(/(\d{4})(\d{0,2})(\d{0,2})/);
+        //   date = RegExp.$1 + (RegExp.$2 === "" ? "" : "-" + RegExp.$2) + (RegExp.$3 === "" ? "" : "-" + RegExp.$3);
+        // } else {
+        //   date = "";
+        // }
 
-        var province = res.data.specimen_province === null ? "" : res.data.specimen_province;
-        var city = res.data.specimen_city === null ? "" : res.data.specimen_city;
-        var loc = res.data.specimen_loc === null ? "" : res.data.specimen_loc;
+        // var province = res.data.specimen_province === null ? "" : res.data.specimen_province;
+        // var city = res.data.specimen_city === null ? "" : res.data.specimen_city;
+        // var loc = res.data.specimen_loc === null ? "" : res.data.specimen_loc;
 
-        var specDes = res.data.specimen_des === null ? "" : res.data.specimen_des;
-        if (specDes != "") {
-          specDes.match(/[^，；。]+[，；。]*/g).map((e, i) => i + 1 + ")" + e + "\n").reduce((a, b) => a.concat(b));
-        }
-
+        // var specDes = res.data.specimen_des === null ? "" : res.data.specimen_des;
+        // if (specDes != "") {
+        //   specDes.match(/[^，；。]+[，；。]*/g).map((e, i) => i + 1 + ")" + e + "\n").reduce((a, b) => a.concat(b));
+        // }
+        console.log((res.data.spec_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x))
         that.setData({
-          pic_src: (res.data.specimen_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x),
+          pic_src: (res.data.spec_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x),
           hasFavor: res.data.hasFavor,
           exhibit_information: {
             name: res.data.spec_chName,
             nickname: res.data.spec_Alias === null ? "" : "俗名：" + res.data.spec_Alias,
-            category: res.data.genus_chName === null ? "" : res.data.genus_chName,
+            category: res.data.genus_chName && res.data.genus_chName !== null ? res.data.genus_chName : "",
             share: '/res/share.png',
-            position: res.data.specimen_pos === null ? "" : "存放位置：" + res.data.specimen_pos,
-            collect: (res.data.specimen_collector === null ? "" : "采集人：" + res.data.specimen_collector) + (date === "" ? "" : " 采集日期：" + date) + (province + city + loc === "" ? "" : " 采集地点：" + province + city + loc),
+            genus: res.data.genus_chName && res.data.genus_chName !== null ? res.data.genus_chName : "",
+            genusdescription: res.data.genus_des,
+            // position: res.data.specimen_pos === null ? "" : "存放位置：" + res.data.specimen_pos,
+            // collect: (res.data.specimen_collector === null ? "" : "采集人：" + res.data.specimen_collector) + (date === "" ? "" : " 采集日期：" + date) + (province + city + loc === "" ? "" : " 采集地点：" + province + city + loc),
             bar: "/res/bar.png",
-            specimen_description: specDes,
+            audio: '/res/audio.png',
+            // specimen_description: specDes,
             morphology_description: res.data.spec_formDes === null ? "" : res.data.spec_formDes,
             surroundings: res.data.spec_envir === null ? "" : res.data.spec_envir,
             application_value: res.data.spec_value === null ? "" : res.data.spec_value,
@@ -91,14 +107,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    this.closeAudio()
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    this.closeAudio()
   },
 
   /**
@@ -118,8 +134,18 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (e) {
+    this.hideMask()
+    return {
+      title: this.data.exhibit_information.name,
+      path: `/pages/item/plant/plant?id=${this.id}`,
+      success: (res) => {
+        console.log("转发成功", res);
+      },
+      fail: (res) => {
+        console.log("转发失败", res);
+      }
+    }
   },
 
   clickTab: function (e) {
@@ -148,9 +174,9 @@ Page({
       wx.request({
         url: "https://www.sysubiomuseum.com/userFavor/removefavor",
         data: {
-          specimenId: this.id,
+          specId: this.id,
           openid: wx.getStorageSync('openid'),
-          specimenType: 'plant'
+          specType: 'plant'
         },
         method: "GET",
         dataType: "json",
@@ -172,9 +198,9 @@ Page({
       wx.request({
         url: "https://www.sysubiomuseum.com/userFavor/addfavor",
         data: {
-          specimenId: this.id,
+          specId: this.id,
           openid: wx.getStorageSync('openid'),
-          specimenType: 'plant',
+          specType: 'plant',
           chName: this.data.exhibit_information.name
         },
         method: "GET",
@@ -210,5 +236,238 @@ Page({
     this.setData({
       exhibitImageHeight: ratio * height,
     });
+  },
+
+  getAip: function (e) {
+    var self = this
+    console.log(e.currentTarget.dataset.filename, e.currentTarget.dataset.transfer_data, e.currentTarget.dataset.title)
+    wx.request({
+      url: 'https://www.sysubiomuseum.com/aip/getaip',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        type: 'plant',
+        id: self.id,
+        transfer_data: e.currentTarget.dataset.title + ',' + e.currentTarget.dataset.transfer_data,
+        title: e.currentTarget.dataset.filename
+      },
+      method: 'POST',
+      success: (res) => {
+        self.setData({
+          playing: true,
+          paused: false,
+          audioTitle: e.currentTarget.dataset.title,
+        })
+        wx.downloadFile({
+          url: res.data.url,
+          success(response) {
+            // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+            if (res.statusCode === 200) {
+              self.audioContext.src = response.tempFilePath
+              self.audioContext.autoplay = true
+              console.log(self.audioContext)
+              self.audioContext.play()
+            }
+          }
+        })
+      }
+    })
+  },
+  switchAudio() {
+    if (!this.data.paused) {
+      this.audioContext.pause()
+    } else {
+      this.audioContext.play()
+    }
+    this.setData({
+      paused: !this.data.paused
+    })
+
+  },
+  closeAudio() {
+    this.audioContext.stop()
+    this.setData({
+      playing: false,
+      paused: false
+    })
+  },
+  share() {
+    this.setData({
+      showModal: true
+    })
+  },
+  capture_pic(e) {
+    var self = this
+    var date = new Date()
+    this.setData({
+      showModal: false,
+      posterContent: '',
+      posterDate: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+    })
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original'],
+      sourceType: [`${e.currentTarget.dataset.type}`],
+      success(res) {
+        // tempFilePath可以作为img标签的src属性显示图片
+        let tempFilePaths = res.tempFilePaths
+        console.log(tempFilePaths)
+        wx.saveFile({
+          tempFilePath: tempFilePaths[0],
+          success(res) {
+            const savedFilePath = res.savedFilePath
+            self.setData({
+              showPoster: true,
+              posterImage: savedFilePath
+            })
+          }
+        })
+      }
+    })
+  },
+  preventTouchMove(e) {
+
+  },
+  hideMask() {
+    this.setData({
+      showModal: false,
+      showPoster: false
+    })
+  },
+  generate_poster() {
+    console.log('图片海报已生成')
+    var self = this
+    const query = wx.createSelectorQuery()
+    query.select('.poster-view-canvas').boundingClientRect()
+    query.select('.poster-content-image').boundingClientRect()
+    query.select('#poster-image').boundingClientRect()
+    query.exec(function (res) {
+      console.log(res)
+      console.log(self.translateRpxToPx((res[1].width - res[2].width) / 2), self.translateRpxToPx(190), self.translateRpxToPx(res[2].width), self.translateRpxToPx(res[2].height))
+      self.drawCanvas((res[1].width - res[2].width) / 2, self.translateRpxToPx(190), res[2].width, res[2].height, res[0].width, res[0].height)
+    })
+    // this.hideMask()
+  },
+  bindKeyInput(e) {
+    this.setData({
+      posterContent: e.detail.value
+    })
+  },
+  translateRpxToPx(rpx) {
+    var systemInfo = wx.getSystemInfoSync();
+    return rpx / 750 * systemInfo.windowWidth;
+  },
+  drawCanvas(imagesx, imagesy, imagewidth, imageheight, canvasWidth, canvasHeight) {
+    var self = this
+    var postContext = wx.createCanvasContext("poster", this)
+    postContext.setFillStyle('white')
+    postContext.fillRect(0, 0, canvasWidth, canvasHeight)
+    postContext.setFillStyle('black')
+    postContext.font = "16px 'FZSJ-XUYYH-DC'"
+    postContext.drawImage('/res/logo.png', this.translateRpxToPx(20), this.translateRpxToPx(20), this.translateRpxToPx(120), this.translateRpxToPx(120))
+    postContext.fillText(`SYSBM - ${this.data.exhibit_information.name}`, this.translateRpxToPx(140), this.translateRpxToPx(80) + 8)
+    postContext.drawImage(this.data.posterImage, imagesx, imagesy, imagewidth, imageheight)
+    postContext.textAlign = "right"  //文字居右
+    console.log(canvasWidth)
+    postContext.fillText(this.data.posterContent, canvasWidth - this.translateRpxToPx(30), this.translateRpxToPx(640) + 16)
+    postContext.fillText(this.data.posterDate, canvasWidth - this.translateRpxToPx(30), this.translateRpxToPx(640) + 32)
+    postContext.drawImage('/res/code.png', 0, canvasHeight * 0.8, canvasWidth, canvasHeight * 0.2)
+    postContext.draw()
+
+    setTimeout((e) => {
+      self.saveCanvas()
+    }, 500)
+  },
+  saveCanvas() {
+    var self = this
+    wx.canvasToTempFilePath({
+      x: 0,
+      y: 0,
+      canvasId: 'poster',
+      success: function (res) {
+        let shareImg = res.tempFilePath
+        console.log(self.data.posterImage)
+        self.hideMask()
+        wx.getSetting({
+          success(res) {
+            // 如果没有则获取授权
+            if (!res.authSetting['scope.writePhotosAlbum']) {
+              wx.authorize({
+                scope: 'scope.writePhotosAlbum',
+                success() {
+                  console.log(shareImg)
+                  wx.saveImageToPhotosAlbum({
+                    filePath: shareImg,
+                    success() {
+                      wx.showToast({
+                        title: '保存成功'
+                      })
+                    },
+                    fail() {
+                      wx.showToast({
+                        title: '保存失败',
+                        icon: 'none'
+                      })
+                    }
+                  })
+                },
+                fail() {
+                }
+              })
+            } else {
+              // 有则直接保存
+              wx.saveImageToPhotosAlbum({
+                filePath: shareImg,
+                success() {
+                  wx.showToast({
+                    title: '保存成功'
+                  })
+                },
+                fail() {
+                  wx.showToast({
+                    title: '保存失败',
+                    icon: 'none'
+                  })
+                }
+              })
+            }
+          }
+        })
+        wx.uploadFile({
+          url: 'https://www.sysubiomuseum.com/upload',
+          filePath: self.data.posterImage,
+          name: 'file',
+          success(res) {
+            console.log(res)
+          },
+          fail(res) {
+            console.log(res)
+          }
+        })
+        wx.request({
+          url: "https://www.sysubiomuseum.com/share/addshare",
+          data: {
+            specId: self.id,
+            chName: self.data.exhibit_information.name,
+            openid: wx.getStorageSync('openid'),
+            specType: 'plant',
+            filePath: self.data.posterImage,
+            content: self.data.posterContent,
+            shareDate: self.data.posterDate
+          },
+          method: "GET",
+          dataType: "json",
+          success: function (res) {
+            console.log(res)
+          },
+          fail: function (res) {
+            console.log(res)
+          }
+        })
+      },
+      fail: function (res) {
+      }
+    })
   }
 })

@@ -1,11 +1,23 @@
 <!--index.wxml-->
+<view>
+  <view id="audio-view" wx-if="{{playing}}">
+    <span style="display:flex;flex:0.95">正在播放：{{audioTitle}}</span>
+    <image src='{{paused===false ? "/res/pause.png" : "/res/play.png"}}' mode='aspectFit' bindtap='switchAudio'></image>
+    <image src='/res/close.png' mode='aspectFit' bindtap='closeAudio'></image>
+  </view>
+</view>
+
 <view class="content">
 
   <view class = 'cover' style='position:relative'>
     <image class = 'coverbackground' src='/res/cover.jpg' style='position:absolute'></image>
     <image class = 'covertitle' src='/res/covertitle.png' style='position:absolute;top:35vh'/>
-    <text class = 'covercontent'style='position:absolute;top:47vh'>{{covercontent}}</text>
+    <text class = 'covercontent'style='position:absolute;top:47vh;'>{{covercontent}}</text>
     <image class = 'coverbutton' src='/res/pushdown.png' style='position:absolute;bottom:20rpx;left:350rpx' bindtap='pushdown'/>
+  </view>
+
+  <view class = 'cover' style='position:relative'>
+    <image class = 'coverbackground' src='/res/notice.jpg' style='position:absolute'></image>
   </view>
 
   <scroll-view class = 'scroll' scroll-x="true">
@@ -20,9 +32,32 @@
     </swiper>
   </scroll-view>
 
-  <view class = 'introduction'>
-    <text class='text' decode="{{true}}">{{intro}}</text>
+  <view id='article-container'>
+    <view id='article-item'>
+      <view id='item-title-container'>
+        <text id='item-title' style="display:flex;flex:0.93;">博物馆介绍</text>
+        <image src='/res/audio.png' mode='aspectFit' bindtap='getAip' data-filename="introduction" data-transfer_data="{{intro}}" data-title="博物馆介绍"></image>
+      </view>
+      <view class = 'introduction'>
+        <text class='text' decode="{{true}}">{{intro}}</text>
+      </view>
+    </view>
   </view>
+  <!-- <view class = 'introduction'>
+    <text class='text' decode="{{true}}">{{intro}}</text>
+  </view> -->
 
+</view>
+
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}" bindtap='hideMask'></view>
+
+<view class="modalDlg" wx:if="{{showModal}}">
+  <view style="margin:30rpx 50rpx">
+    欢迎使用中山大学生物博物馆导览小程序，是否登录体验更多功能？
+  </view>
+  <view style="width:100%">
+    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo">确定</button>
+    <button bindtap="laterLogin">稍后再登录</button>
+  </view>
 </view>
 
