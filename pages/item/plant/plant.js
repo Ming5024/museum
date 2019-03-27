@@ -74,7 +74,7 @@ Page({
             category: res.data.genus_chName && res.data.genus_chName !== null ? res.data.genus_chName : "",
             share: '/res/share.png',
             genus: res.data.genus_chName && res.data.genus_chName !== null ? res.data.genus_chName : "",
-            genusdescription: res.data.genus_des,
+            genusdescription: res.data.genus_des === null ? "" : res.data.genus_des,
             // position: res.data.specimen_pos === null ? "" : "存放位置：" + res.data.specimen_pos,
             // collect: (res.data.specimen_collector === null ? "" : "采集人：" + res.data.specimen_collector) + (date === "" ? "" : " 采集日期：" + date) + (province + city + loc === "" ? "" : " 采集地点：" + province + city + loc),
             bar: "/res/bar.png",

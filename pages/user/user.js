@@ -49,6 +49,9 @@ Page({
   },
   getUserInfo: function (e) {
     console.log(e)
+    if(!e.detail.userInfo) {
+      return
+    }
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,

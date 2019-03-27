@@ -42,6 +42,7 @@ Page({
           hasUserInfo: true,
           showModal: false
         })
+        this.setUserInfo()
       }
       app.noAuthCallback = res => {
         this.setData({
@@ -154,5 +155,23 @@ Page({
     })
     wx.setStorageSync("encrypteddata", e.detail.encryptedData)
     wx.setStorageSync("iv", e.detail.iv)
-  }
+    this.setUserInfo()
+  },
+  setUserInfo: function () {
+    wx.request({
+      url: 'https://www.sysubiomuseum.com/userAuth/userinfo',
+      header: {
+        'content-type': "application/x-www-form-urlencoded"
+      },
+      data: {
+        session_key: wx.getStorageSync("session_key"),
+        iv: wx.getStorageSync("iv"),
+        encryptedData: wx.getStorageSync("encrypteddata")
+      },
+      method: "POST",
+      success: res => {
+        console.log(res)
+      }
+    })
+  },
 })
