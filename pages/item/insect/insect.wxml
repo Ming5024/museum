@@ -74,7 +74,7 @@
     <view wx:if="{{exhibit_information.body_color!=''}}" id='aricle-item3'>
       <view id='item-title-container'>
         <image id='bar' src='{{exhibit_information.bar}}' mode='aspectFit'></image>
-        <text id='item-title'>体色</text>
+        <text id='item-title'  style="display:flex;flex:0.93;">体色</text>
         <image src='{{exhibit_information.audio}}' mode='aspectFit' bindtap='getAip' data-filename="bodyColor" data-transfer_data="{{exhibit_information.body_color}}" data-title="体色"></image>
       </view>
       <view id='text-container'>

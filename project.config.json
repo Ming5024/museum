@@ -16,6 +16,8 @@
 	"appid": "wx68d3e1c93c8c4f73",
 	"projectname": "musuem",
 	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

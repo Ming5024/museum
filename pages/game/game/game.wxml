@@ -1,0 +1,16 @@
+<!--pages/game/game.wxml-->
+<view class="content">
+  <image src="/games/logo-1.png" mode="widthFix" class="logo"></image>
+  <view class="game_card" wx:for='{{orderList}}'>
+    <image src="https://www.sysubiomuseum.com/game/pic/{{item}}.jpg" mode="aspectFit" class="card_pic"></image>
+    <input bindinput="bindKeyInput" class="card_input" data-id="{{index}}"></input>
+  </view>
+  <button class="submit_btn" bindtap='submitAns'>提交</button>
+</view>
+
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}" bindtap='hideMask'></view>
+ 
+<view class="modalDlg" wx:if="{{showModal}}">
+  <text>您已答对{{correctNum}}题</text>
+  <button bindtap='returnIndex'>确定</button>
+</view>

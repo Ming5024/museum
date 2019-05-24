@@ -1,0 +1,7 @@
+<!--pages/game/index/index.wxml-->
+<view class="content">
+  <image src="/games/logo-1.png" mode="widthFix" class="logo"></image>
+  <button bindtap="start_game" class="game_btn">开始游戏</button>
+  <button class="game_btn">历史成绩</button>
+</view>
+
