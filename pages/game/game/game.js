@@ -80,13 +80,10 @@ Page({
   },
 
   bindKeyInput: function (e) {
-    console.log(e)
     var str = `inputValue[${e.target.dataset.id}]`
-    console.log(str)
     this.setData({
       [str]: e.detail.value
     })
-    console.log(this.data.inputValue)
   },
 
   submitAns: function () {
@@ -104,8 +101,16 @@ Page({
       },
       method: "POST",
       success: res => {
+        console.log(res.data)
+        var showText = ''
+        if(res.data.correctNum === 10) {
+          showText = '恭喜你全部答对啦！'
+        } else {
+          showText = `你已答对${res.data.correctNum}题，请再接再厉！`
+        }
         self.setData({
-          correctNum: res.data.correctNum,
+          showText: showText,
+          showResult: res.data.result,
           showModal: true
         })
       }

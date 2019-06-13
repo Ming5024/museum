@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    showModal: false
   },
 
   /**
@@ -67,6 +67,32 @@ Page({
   start_game: function () {
     wx.navigateTo({
       url: '/pages/game/game/game',
+    })
+  },
+
+  get_history: function () {
+    var self = this
+    wx.request({
+      url: 'https://www.sysubiomuseum.com/game/getrecord',
+      // url: 'http://www.sysubiomuseum.com:8081/game/getrecord',
+      data: {
+        openid: wx.getStorageSync('encrypteddata') === '' ? 'undefined' : wx.getStorageSync('openid')
+      },
+      dataType: "json",
+      method: "GET",
+      success: res => {
+        console.log(res.data)
+        self.setData({
+          recordList: res.data.record.reverse(),
+          showModal: true
+        })
+      }
+    })
+  },
+
+  closeModal: function () {
+    this.setData({
+      showModal: false
     })
   }
 })

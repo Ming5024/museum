@@ -16,9 +16,9 @@ page {
 }
 
 .game_card {
-  width: 48%;
-  height:350rpx;
-  margin: 10rpx 1%;
+  width: 90%;
+  height:500rpx;
+  margin: 10rpx 5%;
   display:inline-block;
 
 }
@@ -29,7 +29,7 @@ page {
 }
 
 .card_input {
-  width:90%;
+  width:70%;
   margin:0 auto;
   background-color:white;
   border:2px solid grey;
@@ -52,19 +52,20 @@ page {
 }
 
 .modalDlg{
-  background-image: url('https://www.sysubiomuseum.com/game/pic/bg.jpg');
+  background-image: url('https://www.sysubiomuseum.com/game/pic/modal_history.png');
   width: 580rpx;
+  height:600rpx;
   position: fixed;
-  top: 40%;
+  top: 20%;
   left: 0;
   z-index: 9999;
   margin: 0 85rpx;
   padding-bottom: 20rpx;
-  background-color: #fff;
-  border-radius: 36rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-size:100% 100%;
+  background-repeat:no-repeat;
 }
 
 .modalDlg text {
@@ -73,4 +74,16 @@ page {
 
 .modalDlg button {
   width: 30%;
+}
+
+.single_result {
+  width: 40%;
+  display:inline-block;
+  padding:0 5%;
+  font-size: 15px;
+}
+
+.modalDlg .result_image {
+  width: 25rpx;
+  height: 25rpx;
 }
