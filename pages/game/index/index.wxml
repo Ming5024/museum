@@ -1,0 +1,35 @@
+<!--pages/game/index/index.wxml-->
+<view class="content">
+  <image src="/games/logo-1.png" mode="widthFix" class="logo"></image>
+  <button bindtap="start_game" class="game_btn">开始游戏</button>
+  <button bindtap="get_history" class="game_btn">历史成绩</button>
+</view>
+
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}" bindtap='hideMask'></view>
+ 
+<view class="modalDlg" wx:if="{{showModal}}">
+  <view style="height:40rpx"></view>
+  <text class="modal_title">历史成绩</text>
+  <scroll-view scroll-y style="height: 400rpx;">
+    <view id="record_table" class="modal_table">
+      <view class="table">
+        <view class="tr bg-w">
+          <view class="th th-1">时间</view>
+          <view class="th th-2">成绩</view>
+        </view>
+        <block wx:for="{{recordList}}" wx:key="{{record}}">
+          <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+            <view class="td td-1">{{item[1]}}</view>
+            <view class="td td-2">{{item[0]}}</view>
+          </view>
+          <view class="tr" wx:else>
+            <view class="td td-1">{{item[1]}}</view>
+            <view class="td td-2">{{item[0]}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </scroll-view>
+  <image src="/res/modal_close.png" bindtap='closeModal'>X</image>
+</view>
+

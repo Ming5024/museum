@@ -164,6 +164,21 @@ Page({
       })
     }
   },
+  modal_game: function (e) {
+    if (wx.getStorageSync('encrypteddata') === '') {
+      wx.showModal({
+        title: '提示',
+        content: '请登录后再使用该功能！',
+        duration: 1000,
+        showCancel: false,
+      })
+    }
+    else {
+      wx.navigateTo({
+        url: '/pages/game/index/index',
+      })
+    }    
+  },
   editinfo:function(e){
     wx.navigateTo({
       url: '/pages/edituserinfo/edituserinfo',
