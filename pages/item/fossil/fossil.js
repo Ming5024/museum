@@ -40,7 +40,7 @@ Page({
     })
 
     wx.request({
-      url: "https://www.sysubiomuseum.com/search/fossil",
+      url: "https://www.sysubm.com/search/fossil",
       method: "GET",
       data: {
         specId: this.id,
@@ -50,7 +50,7 @@ Page({
       success: function(res) {
         console.log(res)
         that.setData({
-          pic_src: res.data.spec_pic ? (res.data.spec_pic).map(x => "https://www.sysubiomuseum.com/pic/" + x):[],
+          pic_src: res.data.spec_pic ? (res.data.spec_pic).map(x => "https://www.sysubm.com/static/" + x):[],
           hasFavor: res.data.hasFavor,
           exhibit_information: {
             name: res.data.spec_chName,
@@ -150,7 +150,7 @@ Page({
     }
     if (this.data.hasFavor) {    //取消收藏
       wx.request({
-        url: "https://www.sysubiomuseum.com/userFavor/removefavor",
+        url: "https://www.sysubm.com/userFavor/removefavor",
         data: {
           specId: this.id,
           openid: wx.getStorageSync('openid'),
@@ -174,7 +174,7 @@ Page({
     }
     else {                      //收藏
       wx.request({
-        url: "https://www.sysubiomuseum.com/userFavor/addfavor",
+        url: "https://www.sysubm.com/userFavor/addfavor",
         data: {
           specId: this.id,
           openid: wx.getStorageSync('openid'),
@@ -220,7 +220,7 @@ Page({
     var self = this
     console.log(e.currentTarget.dataset.filename, e.currentTarget.dataset.transfer_data, e.currentTarget.dataset.title)
     wx.request({
-      url: 'https://www.sysubiomuseum.com/aip/getaip',
+      url: 'https://www.sysubm.com/aip/getaip',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
@@ -413,7 +413,7 @@ Page({
           }
         })
         wx.uploadFile({
-          url: 'https://www.sysubiomuseum.com/upload',
+          url: 'https://www.sysubm.com/upload',
           filePath: self.data.posterImage,
           name: 'file',
           success(res) {
@@ -424,7 +424,7 @@ Page({
           }
         })
         wx.request({
-          url: "https://www.sysubiomuseum.com/share/addshare",
+          url: "https://www.sysubm.com/share/addshare",
           data: {
             specId: self.id,
             chName: self.data.exhibit_information.name,

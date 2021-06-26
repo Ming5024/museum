@@ -94,7 +94,7 @@ Page({
 
       //上传数据
       wx.request({
-        url: 'https://www.sysubiomuseum.com/userAuth/update',
+        url: 'https://www.sysubm.com/userAuth/update',
         method: 'POST',
         header: {
           'content-type': "application/x-www-form-urlencoded"

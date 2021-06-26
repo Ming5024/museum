@@ -18,13 +18,13 @@ Page({
     });
 
     wx.request({
-      url: "https://www.sysubiomuseum.com/search/exhibition",
+      url: "https://www.sysubm.com/search/exhibition",
       method: "GET",
       data: {sectionId: info.id},
       dataType: "json",
       success: function(res) {
         that.setData({
-          exhibitionImageUrls: (res.data.pic).map(x => "https://www.sysubiomuseum.com/pic/exhibitionpic/" + x),
+          exhibitionImageUrls: (res.data.pic).map(x => "https://www.sysubm.com/static/exhibitionpic/" + x),
           mainContent: res.data.intro === null ? "" : res.data.intro,
           indicator: "1/" + (res.data.pic).length,
           articleTitle: info.title,

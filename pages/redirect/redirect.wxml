@@ -8,7 +8,7 @@
     <scroll-view>
       <view class="view-item" wx:for='{{items}}'>
         <navigator url="/pages/item/{{item.spec_type}}/{{item.spec_type}}?id={{item.spec_id}}">
-          <image class="view-item-image" src="{{item.spec_pic ? 'https://www.sysubiomuseum.com/pic/' + item.spec_pic : '/res/404.jpg'}}"></image>
+          <image class="view-item-image" src="{{item.spec_pic ? 'https://www.sysubm.com/static/' + item.spec_pic : '/res/404.jpg'}}"></image>
           <text class="view-item-id">{{item.spec_chName}}</text>
         </navigator>
       </view>

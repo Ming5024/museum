@@ -73,8 +73,8 @@ Page({
   get_history: function () {
     var self = this
     wx.request({
-      url: 'https://www.sysubiomuseum.com/game/getrecord',
-      // url: 'http://www.sysubiomuseum.com:8081/game/getrecord',
+      url: 'https://www.sysubm.com/game/getrecord',
+      // url: 'http://www.sysubm.com:8081/game/getrecord',
       data: {
         openid: wx.getStorageSync('encrypteddata') === '' ? 'undefined' : wx.getStorageSync('openid')
       },

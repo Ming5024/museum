@@ -53,11 +53,11 @@ Page({
 
     //请求页面数据
     wx.request({
-      url: 'https://www.sysubiomuseum.com/search/mainintro',
+      url: 'https://www.sysubm.com/search/mainintro',
       method: 'GET',
       success: res=>{
         for (var i = 0; i < res.data.guide_pic.length; i++) {
-          res.data.guide_pic[i] = "https://www.sysubiomuseum.com/pic/exhibitionpic/" + res.data.guide_pic[i];
+          res.data.guide_pic[i] = "https://www.sysubm.com/static/exhibitionpic/" + res.data.guide_pic[i];
         }
         this.setData({
           intro: "&nbsp;&nbsp;"+res.data.simple_intro.replace("\r\n", "\r\n&nbsp;&nbsp;"),
@@ -81,7 +81,7 @@ Page({
     var self = this
     console.log(e.currentTarget.dataset.filename, e.currentTarget.dataset.transfer_data, e.currentTarget.dataset.title)
     wx.request({
-      url: 'https://www.sysubiomuseum.com/aip/getaip',
+      url: 'https://www.sysubm.com/aip/getaip',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
@@ -159,7 +159,7 @@ Page({
   },
   setUserInfo: function () {
     wx.request({
-      url: 'https://www.sysubiomuseum.com/userAuth/userinfo',
+      url: 'https://www.sysubm.com/userAuth/userinfo',
       header: {
         'content-type': "application/x-www-form-urlencoded"
       },

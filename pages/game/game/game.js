@@ -14,8 +14,8 @@ Page({
    */
   onLoad: function (options) {
     wx.request({
-      url: 'https://www.sysubiomuseum.com/game/getorder',
-      // url: 'http://www.sysubiomuseum.com:8081/game/getorder',
+      url: 'https://www.sysubm.com/game/getorder',
+      // url: 'http://www.sysubm.com:8081/game/getorder',
       header: {
         'content-type': "application/x-www-form-urlencoded"
       },
@@ -89,8 +89,8 @@ Page({
   submitAns: function () {
     var self = this
     wx.request({
-      url: 'https://www.sysubiomuseum.com/game/check',
-      // url: 'http://www.sysubiomuseum.com:8081/game/check',
+      url: 'https://www.sysubm.com/game/check',
+      // url: 'http://www.sysubm.com:8081/game/check',
       header: {
         'content-type': "application/x-www-form-urlencoded"
       },

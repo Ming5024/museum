@@ -35,7 +35,7 @@ Page({
     var that = this;
 
     wx.request({
-      url: "https://www.sysubiomuseum.com/userHistory/gethistory",
+      url: "https://www.sysubm.com/userHistory/gethistory",
       data: {
         openid: wx.getStorageSync('openid')
       },
@@ -49,7 +49,7 @@ Page({
             i.pics = "/res/404.jpg"
           }
           else {
-            i.pics = `https://www.sysubiomuseum.com/pic/${i.pics[0]}`
+            i.pics = `https://www.sysubm.com/static/${i.pics[0]}`
           }
         }
         that.setData({

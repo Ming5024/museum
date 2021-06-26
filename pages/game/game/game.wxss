@@ -6,7 +6,7 @@ page {
 
 .content {
   width: 100%;
-  background-image: url('https://www.sysubiomuseum.com/game/pic/bg.jpg');
+  background-image: url('https://www.sysubm.com/game/pic/bg.jpg');
   background-repeat: repeat-y;
   padding-bottom: 50rpx;
 }
@@ -52,7 +52,7 @@ page {
 }
 
 .modalDlg{
-  background-image: url('https://www.sysubiomuseum.com/game/pic/modal_history.png');
+  background-image: url('https://www.sysubm.com/game/pic/modal_history.png');
   width: 580rpx;
   height:600rpx;
   position: fixed;

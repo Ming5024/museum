@@ -38,7 +38,7 @@ Page({
     }
 
     wx.request({
-      url: "https://www.sysubiomuseum.com/userFavor/getfavor",
+      url: "https://www.sysubm.com/userFavor/getfavor",
       data: {
         openid: wx.getStorageSync('openid')
       },
@@ -52,7 +52,7 @@ Page({
             i.pics = "/res/404.jpg"
           }
           else {
-            i.pics = `https://www.sysubiomuseum.com/pic/${i.pics[0]}`
+            i.pics = `https://www.sysubm.com/static/${i.pics[0]}`
           }
         }
         collectionTypeArray[0]['data'] = res.data.favors.filter(it => it.specType === 'animal')

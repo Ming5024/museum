@@ -2,7 +2,7 @@
 <view class="content">
   <image src="/games/logo-1.png" mode="widthFix" class="logo"></image>
   <view class="game_card" wx:for='{{orderList}}'>
-    <image src="https://www.sysubiomuseum.com/game/pic/{{item}}.jpg" mode="aspectFit" class="card_pic"></image>
+    <image src="https://www.sysubm.com/game/pic/{{item}}.jpg" mode="aspectFit" class="card_pic"></image>
     <input bindinput="bindKeyInput" class="card_input" data-id="{{index}}" placeholder="在此处输入答案"></input>
   </view>
   <button class="submit_btn" bindtap='submitAns'>提交</button>
@@ -11,7 +11,7 @@
 <view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}" bindtap='hideMask'></view>
  
 <view class="modalDlg" wx:if="{{showModal}}">
-  <!-- <image src="https://www.sysubiomuseum.com/game/pic/modal.png" mode="aspectFit" class="modal_pic"></image> -->
+  <!-- <image src="https://www.sysubm.com/game/pic/modal.png" mode="aspectFit" class="modal_pic"></image> -->
   <view style="height:80rpx"></view>
   <text>{{showText}}</text>
   <view style="margin: 30rpx 0">

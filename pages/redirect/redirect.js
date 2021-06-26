@@ -26,7 +26,7 @@ Page({
     })
 
     wx.request({
-      url: "https://www.sysubiomuseum.com/search/cabinet",
+      url: "https://www.sysubm.com/search/cabinet",
       data: {
         cabinetNum: this.id,
       },

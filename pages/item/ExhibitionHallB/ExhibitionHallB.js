@@ -15,13 +15,13 @@ Page({
     var id = options.id;
 
     wx.request({
-      url: "https://www.sysubiomuseum.com/search/exhibition",
+      url: "https://www.sysubm.com/search/exhibition",
       method: "GET",
       data: {sectionId: id},
       dataType: "json",
       success: function(res) {
         var exhibitAreaId = res.data.exhiareas_id;
-        var exhibitPic = (res.data.exhibits_pics).map(x => x.map(y => "https://www.sysubiomuseum.com/pic/exhibitionpic/" + y));
+        var exhibitPic = (res.data.exhibits_pics).map(x => x.map(y => "https://www.sysubm.com/static/exhibitionpic/" + y));
         var exhibitArea = res.data.exhiareas;
         var exhibit = res.data.exhibits;
         var exhibitId = res.data.exhibits_id;
@@ -55,7 +55,7 @@ Page({
         }
 
         that.setData({
-          exhibitionHallImageUrls: (res.data.pic).map(x => "https://www.sysubiomuseum.com/pic/exhibitionpic/" + x),
+          exhibitionHallImageUrls: (res.data.pic).map(x => "https://www.sysubm.com/static/exhibitionpic/" + x),
           articleTitle: res.data.chName,
           introduction: res.data.intro === null ? "" : res.data.intro,
           indicator: "1/" + (res.data.pic).length,

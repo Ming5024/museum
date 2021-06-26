@@ -63,8 +63,8 @@ Page({
   },
   setUserInfo: function() {
     wx.request({
-      url: 'https://www.sysubiomuseum.com/userAuth/userinfo',
-      // url: 'http://www.sysubiomuseum.com:8081/userAuth/userinfo',
+      url: 'https://www.sysubm.com/userAuth/userinfo',
+      // url: 'http://www.sysubm.com:8081/userAuth/userinfo',
       header: {
         'content-type': "application/x-www-form-urlencoded"
       },
